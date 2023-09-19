@@ -19,6 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
@@ -40,6 +41,7 @@ import javax.swing.tree.DefaultTreeCellEditor;
 public class Proceso extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
 
     private JPopupMenu men = new JPopupMenu();
+    private JMenuItem it2=new JMenuItem("Eliminar");
     private JMenuItem it1=new JMenuItem("Eliminar");
     private Point inicial;
     private static Proceso figselec;
@@ -57,8 +59,21 @@ public class Proceso extends JPanel implements MouseListener, MouseMotionListene
     
     
     public Proceso() {
-        it1.addActionListener(this);
-        men.add(it1);
+        it2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                borrado = true;
+                JPanel xf = (JPanel) figselec.getParent();
+                xf.remove(figselec);
+                xf.repaint();
+
+
+
+            }
+        });
+        
+        men.add(it2);
+        add(men);
         sp1.setPreferredSize(new Dimension(130, 25));
         this.addMouseListener((MouseListener) this);
         this.addMouseMotionListener((MouseMotionListener) this);
@@ -87,6 +102,14 @@ public class Proceso extends JPanel implements MouseListener, MouseMotionListene
         if(selec){
             txt.setFont(F);
         }
+    }
+
+    public JPopupMenu getMen() {
+        return men;
+    }
+
+    public void setMen(JPopupMenu men) {
+        this.men = men;
     }
 
     public Font getF() {
@@ -259,6 +282,12 @@ public class Proceso extends JPanel implements MouseListener, MouseMotionListene
                 JPanel xf = (JPanel) figselec.getParent();
                 xf.remove(figselec);
                 xf.repaint();
+    }
+    public void setItem(JMenuItem j){
+        men.add(j);
+    }
+    public void settexto(Color c){
+        txt.setForeground(c);
     }
     
 }

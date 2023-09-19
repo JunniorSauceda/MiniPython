@@ -407,6 +407,9 @@ public class mypanel extends JPanel implements MouseListener, MouseMotionListene
         nvo+="  class";
         setnom(nvo);
     }
-
+    public void settexto(Color c){
+        txt.setForeground(c);
+        txt2.setForeground(c);
+    }
 }
 

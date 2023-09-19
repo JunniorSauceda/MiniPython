@@ -395,4 +395,9 @@ public class Abstractpanel extends JPanel implements MouseListener, MouseMotionL
             txt.setFont(F);
         }
     }
+    public void settexto(Color c){
+        txt.setForeground(c);
+        txt2.setForeground(c);
+        txtA.setForeground(c);
+    }
 }

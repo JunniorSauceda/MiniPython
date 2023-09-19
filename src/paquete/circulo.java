@@ -22,30 +22,41 @@ import java.awt.geom.Ellipse2D;
 public class circulo extends JPanel implements MouseListener, MouseMotionListener, ActionListener{
      private JPopupMenu men = new JPopupMenu();
     private JMenuItem it2=new JMenuItem("Eliminar");
+    
     private Point inicial;
     private boolean selec;
     private circulo figselec;
     private JTextArea area=new JTextArea();
+    private JScrollPane sp1=new JScrollPane(area);
     private String Name;
     private Color color=Color.red;
     
     public circulo(){
-        
-        it2.addActionListener(this);
+        it2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel xf = (JPanel) figselec.getParent();
+                xf.remove(figselec);
+                xf.repaint();
+
+
+
+            }
+        });
         men.add(it2);
-        setLayout(null);
         add(men);
+        setLayout(null);
         this.addMouseListener((MouseListener)this);
         this.addMouseMotionListener((MouseMotionListener)this);
         this.setSize(150, 100);
         this.setPreferredSize(new Dimension(150, 100));
-        area.setOpaque(false);
         area.setLineWrap(true);
-        area.setPreferredSize(new Dimension(100, 25));
+        sp1.setPreferredSize(new Dimension(80, 25));
+        sp1.setBounds(22, 35, 100, 25);
         area.setBounds(22, 35, 106, 30);
-        area.setBackground(Color.blue);
+        area.setBackground(Color.white);
         area.setLayout(getLayout());
-        this.add(area);
+        this.add(sp1);
     }
     @Override
     protected void paintComponent(Graphics g) {
@@ -60,7 +71,6 @@ public class circulo extends JPanel implements MouseListener, MouseMotionListene
         
         g2d.setColor(color); // Cambia el color de fondo a tu elección
         g2d.fill(circle);
-        
         g2d.dispose();
     }
     public void actionPerformed(ActionEvent e) {
@@ -122,7 +132,7 @@ public class circulo extends JPanel implements MouseListener, MouseMotionListene
     public void paintback(Color c) {
         if (selec){
             color=c;
-        repaint();
+            repaint();
         }
     }
     public void setfont(Font F){
@@ -130,4 +140,27 @@ public class circulo extends JPanel implements MouseListener, MouseMotionListene
             area.setFont(F);
         }
     }
+
+    public JPopupMenu getMen() {
+        return men;
+    }
+
+    public void setMen(JPopupMenu men) {
+        this.men = men;
+    }
+    public void setItem(JMenuItem j){
+        men.add(j);
+    }
+    public void settexto(Color c){
+        area.setForeground(c);
+    }
+
+    public boolean isSelec() {
+        return selec;
+    }
+
+    public void setSelec(boolean selec) {
+        this.selec = selec;
+    }
+    
 }

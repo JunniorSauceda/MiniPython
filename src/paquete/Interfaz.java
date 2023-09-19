@@ -332,4 +332,8 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
             txt2.setFont(F);
         }
     }
+    public void settexto(Color c){
+        txt.setForeground(c);
+        txt2.setForeground(c);
+    }
 }

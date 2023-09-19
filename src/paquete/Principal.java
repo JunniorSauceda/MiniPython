@@ -8,24 +8,41 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Point;
 import java.awt.TextArea;
 import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.font.GraphicAttribute;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JColorChooser;
+import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
 import javax.swing.JTextPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /**
  *
@@ -39,7 +56,40 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         this.setAlwaysOnTop(true);
         initComponents();
-
+        
+        op2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              JMenuItem I=(JMenuItem)e.getSource();
+              JPopupMenu P=(JPopupMenu)I.getParent();
+              Object J=P.getParent();
+              String s="";
+              if(J instanceof Rombo){
+                  J=(Rombo)J;
+                  figs.add((Rombo)J);
+                  s="Rombo";
+              }
+              if(J instanceof Paralelogramo){
+                  J=(Paralelogramo)J;
+                  figs.add((Paralelogramo)J);
+                  s="Para";
+              }
+              if(J instanceof Proceso){
+                  
+                  J=(Proceso)J;
+                  figs.add((Proceso)J);
+                  s="Process";
+              }
+              if(J instanceof circulo){
+                  J=(circulo)J;
+                  figs.add((circulo)J);
+                  s="Circu";
+              }
+              
+              
+                System.out.println("Se ha agregado el item "+s);
+            }
+        });;
         jPanel1.setVisible(true);
         Pn_UML.setVisible(false);
         Pn_DdF.setVisible(false);
@@ -91,8 +141,17 @@ public class Principal extends javax.swing.JFrame {
         cb_style = new javax.swing.JComboBox<>();
         cb_tamaño = new javax.swing.JComboBox<>();
         bt_cambiarfont = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jpn_UML = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
         JD_DdF = new javax.swing.JDialog();
         jPanel15 = new javax.swing.JPanel();
         jPanel31 = new javax.swing.JPanel();
@@ -106,6 +165,8 @@ public class Principal extends javax.swing.JFrame {
         lb_GenerarFlujo = new javax.swing.JLabel();
         jPanel39 = new javax.swing.JPanel();
         lb_proceso = new javax.swing.JLabel();
+        jPanel53 = new javax.swing.JPanel();
+        jlb_desicion1 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jPanel41 = new javax.swing.JPanel();
         jPanel42 = new javax.swing.JPanel();
@@ -123,8 +184,17 @@ public class Principal extends javax.swing.JFrame {
         cb_Style = new javax.swing.JComboBox<>();
         cb_tamaño1 = new javax.swing.JComboBox<>();
         Bt_setfont = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpn_diagrama = new javax.swing.JPanel();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
         JD_Codigo = new javax.swing.JDialog();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -599,10 +669,22 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        bt_cambiarfont.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         bt_cambiarfont.setText("Cambiar Fuente");
+        bt_cambiarfont.setBorder(null);
+        bt_cambiarfont.setFocusable(false);
         bt_cambiarfont.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 bt_cambiarfontMouseClicked(evt);
+            }
+        });
+
+        jLabel11.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/letra.png"))); // NOI18N
+        jLabel11.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel11MouseClicked(evt);
             }
         });
 
@@ -611,15 +693,17 @@ public class Principal extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(223, Short.MAX_VALUE)
+                .addContainerGap(152, Short.MAX_VALUE)
                 .addComponent(bt_cambiarfont)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cb_tamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_style, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_font, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(40, 40, 40)
+                .addComponent(jLabel11)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -648,43 +732,48 @@ public class Principal extends javax.swing.JFrame {
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(bt_cambiarfont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cb_font, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_style, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cb_tamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(8, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(bt_cambiarfont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cb_font, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cb_style, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cb_tamaño, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel11)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
-        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 80));
+        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 100));
 
         jpn_UML.setBackground(new java.awt.Color(255, 255, 255));
-        jpn_UML.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        jpn_UML.setPreferredSize(new java.awt.Dimension(855, 1000));
 
         javax.swing.GroupLayout jpn_UMLLayout = new javax.swing.GroupLayout(jpn_UML);
         jpn_UML.setLayout(jpn_UMLLayout);
         jpn_UMLLayout.setHorizontalGroup(
             jpn_UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 928, Short.MAX_VALUE)
         );
         jpn_UMLLayout.setVerticalGroup(
             jpn_UMLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -694,6 +783,41 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jpn_UML);
 
         jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 940, 630));
+
+        jMenu1.setText("File");
+
+        jMenu6.setText("Guardar Como...");
+
+        jMenuItem5.setText("Guardar como JPG");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem5);
+
+        jMenuItem6.setText("Guardar como PDF");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem6);
+
+        jMenu1.add(jMenu6);
+
+        jMenuItem7.setText("Guardar Binarios");
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem8.setText("Abrir UML");
+        jMenu1.add(jMenuItem8);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        JD_UML.setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout JD_UMLLayout = new javax.swing.GroupLayout(JD_UML.getContentPane());
         JD_UML.getContentPane().setLayout(JD_UMLLayout);
@@ -726,6 +850,7 @@ public class Principal extends javax.swing.JFrame {
         jlb_desicion.setForeground(new java.awt.Color(0, 0, 0));
         jlb_desicion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlb_desicion.setText("Decision");
+        jlb_desicion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jlb_desicion.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlb_desicionjPanel11MouseClicked(evt);
@@ -755,6 +880,7 @@ public class Principal extends javax.swing.JFrame {
         jlb_ciclo.setForeground(new java.awt.Color(0, 0, 0));
         jlb_ciclo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlb_ciclo.setText("Ciclo");
+        jlb_ciclo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jlb_ciclo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlb_ciclojPanel11MouseClicked(evt);
@@ -784,6 +910,7 @@ public class Principal extends javax.swing.JFrame {
         jlb_datos.setForeground(new java.awt.Color(0, 0, 0));
         jlb_datos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jlb_datos.setText("Datos");
+        jlb_datos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jlb_datos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jlb_datosjPanel11MouseClicked(evt);
@@ -813,6 +940,7 @@ public class Principal extends javax.swing.JFrame {
         lb_GenerarFlujo.setForeground(new java.awt.Color(0, 0, 0));
         lb_GenerarFlujo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_GenerarFlujo.setText("Generar Codigo");
+        lb_GenerarFlujo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lb_GenerarFlujo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_GenerarFlujojPanel11MouseClicked(evt);
@@ -842,6 +970,7 @@ public class Principal extends javax.swing.JFrame {
         lb_proceso.setForeground(new java.awt.Color(0, 0, 0));
         lb_proceso.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_proceso.setText("Proceso");
+        lb_proceso.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lb_proceso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lb_procesojPanel11MouseClicked(evt);
@@ -859,6 +988,36 @@ public class Principal extends javax.swing.JFrame {
             .addComponent(lb_proceso, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
+        jPanel53.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel53.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jPanel53.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel53jPanel11MouseClicked(evt);
+            }
+        });
+
+        jlb_desicion1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jlb_desicion1.setForeground(new java.awt.Color(0, 0, 0));
+        jlb_desicion1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jlb_desicion1.setText("Inicio/Fin");
+        jlb_desicion1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jlb_desicion1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlb_desicion1jPanel11MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel53Layout = new javax.swing.GroupLayout(jPanel53);
+        jPanel53.setLayout(jPanel53Layout);
+        jPanel53Layout.setHorizontalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlb_desicion1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+        );
+        jPanel53Layout.setVerticalGroup(
+            jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jlb_desicion1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
@@ -866,6 +1025,7 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(jPanel31Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -876,24 +1036,27 @@ public class Principal extends javax.swing.JFrame {
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(84, 84, 84)
-                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83))
+                .addGap(42, 42, 42))
         );
 
-        jPanel15.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 630));
+        jPanel15.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 610));
 
         jPanel40.setBackground(new java.awt.Color(51, 51, 51));
 
         jPanel41.setBackground(java.awt.Color.gray);
+        jPanel41.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel41.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel41MouseClicked(evt);
@@ -912,6 +1075,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel42.setBackground(java.awt.Color.lightGray);
+        jPanel42.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel42.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel42MouseClicked(evt);
@@ -930,6 +1094,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel43.setBackground(java.awt.Color.darkGray);
+        jPanel43.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel43.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel43MouseClicked(evt);
@@ -948,6 +1113,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel44.setBackground(java.awt.Color.black);
+        jPanel44.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel44.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel44MouseClicked(evt);
@@ -966,6 +1132,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel45.setBackground(java.awt.Color.red);
+        jPanel45.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel45.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel45MouseClicked(evt);
@@ -984,6 +1151,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel46.setBackground(java.awt.Color.pink);
+        jPanel46.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel46.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel46MouseClicked(evt);
@@ -1002,6 +1170,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel47.setBackground(java.awt.Color.orange);
+        jPanel47.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel47.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel47MouseClicked(evt);
@@ -1020,6 +1189,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel48.setBackground(java.awt.Color.yellow);
+        jPanel48.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel48.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel48MouseClicked(evt);
@@ -1038,6 +1208,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel49.setBackground(java.awt.Color.green);
+        jPanel49.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel49.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel49MouseClicked(evt);
@@ -1056,6 +1227,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel50.setBackground(java.awt.Color.magenta);
+        jPanel50.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel50.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel50MouseClicked(evt);
@@ -1074,6 +1246,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel51.setBackground(java.awt.Color.cyan);
+        jPanel51.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel51.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel51MouseClicked(evt);
@@ -1092,6 +1265,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         jPanel52.setBackground(java.awt.Color.blue);
+        jPanel52.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel52.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel52MouseClicked(evt);
@@ -1109,6 +1283,7 @@ public class Principal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        cb_font2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cb_font2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_font2ItemStateChanged(evt);
@@ -1116,6 +1291,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         cb_Style.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normal", "Bold ", "Italic", "Subrayado" }));
+        cb_Style.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cb_Style.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cb_StyleItemStateChanged(evt);
@@ -1123,13 +1299,18 @@ public class Principal extends javax.swing.JFrame {
         });
 
         cb_tamaño1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "8", "10", "12", "14" }));
+        cb_tamaño1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cb_tamaño1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cb_tamaño1ActionPerformed(evt);
             }
         });
 
+        Bt_setfont.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Bt_setfont.setText("Guardar Fuente");
+        Bt_setfont.setBorder(null);
+        Bt_setfont.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Bt_setfont.setFocusable(false);
         Bt_setfont.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Bt_setfontMouseClicked(evt);
@@ -1141,20 +1322,31 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/letra.png"))); // NOI18N
+        jLabel10.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
         jPanel40Layout.setHorizontalGroup(
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel40Layout.createSequentialGroup()
-                .addContainerGap(226, Short.MAX_VALUE)
-                .addComponent(Bt_setfont)
+                .addContainerGap(142, Short.MAX_VALUE)
+                .addComponent(Bt_setfont, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_tamaño1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_Style, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_font2, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel10)
+                .addGap(42, 42, 42)
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel41, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1183,42 +1375,49 @@ public class Principal extends javax.swing.JFrame {
         jPanel40Layout.setVerticalGroup(
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel40Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel40Layout.createSequentialGroup()
-                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cb_font2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cb_Style, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cb_tamaño1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Bt_setfont, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)))
+                        .addContainerGap()
+                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel40Layout.createSequentialGroup()
+                                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel51, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jPanel46, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel48, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel50, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel52, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cb_font2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_Style, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cb_tamaño1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel40Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel10))
+                    .addGroup(jPanel40Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Bt_setfont, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
-        jPanel15.add(jPanel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 80));
+        jPanel15.add(jPanel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1130, 80));
 
         jpn_diagrama.setBackground(new java.awt.Color(255, 255, 255));
-        jpn_diagrama.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        jpn_diagrama.setPreferredSize(new java.awt.Dimension(855, 1000));
 
         javax.swing.GroupLayout jpn_diagramaLayout = new javax.swing.GroupLayout(jpn_diagrama);
         jpn_diagrama.setLayout(jpn_diagramaLayout);
         jpn_diagramaLayout.setHorizontalGroup(
             jpn_diagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1000, Short.MAX_VALUE)
+            .addGap(0, 928, Short.MAX_VALUE)
         );
         jpn_diagramaLayout.setVerticalGroup(
             jpn_diagramaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1227,7 +1426,47 @@ public class Principal extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jpn_diagrama);
 
-        jPanel15.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 940, 630));
+        jPanel15.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 940, 610));
+
+        jMenu3.setText("File");
+
+        jMenu5.setText("Guardar Como...");
+
+        jMenuItem3.setText("Guardar Como JPG");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem3);
+
+        jMenuItem4.setText("Guardar como PDF");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem4);
+
+        jMenu3.add(jMenu5);
+
+        jMenuItem1.setText("Guardar Como Binario");
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setText("Abrir UML");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar2.add(jMenu3);
+
+        jMenu4.setText("Edit");
+        jMenuBar2.add(jMenu4);
+
+        JD_DdF.setJMenuBar(jMenuBar2);
 
         javax.swing.GroupLayout JD_DdFLayout = new javax.swing.GroupLayout(JD_DdF.getContentPane());
         JD_DdF.getContentPane().setLayout(JD_DdFLayout);
@@ -1983,6 +2222,12 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.gray);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.gray);
+                }
+            }
+            
         }
     }//GEN-LAST:event_jPanel17MouseClicked
 
@@ -2004,6 +2249,11 @@ public class Principal extends javax.swing.JFrame {
             if (c instanceof Interfaz) {
                 if (((Interfaz) c).isSelec()) {
                     ((Interfaz) c).paintback(Color.lightGray);
+                }
+            }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.lightGray);
                 }
             }
         }
@@ -2028,6 +2278,11 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.darkGray);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.darkGray);
+                }
+            }
         }
     }//GEN-LAST:event_jPanel9MouseClicked
 
@@ -2050,6 +2305,11 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.black);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.black);
+                }
+            }
         }
     }//GEN-LAST:event_jPanel21MouseClicked
 
@@ -2070,6 +2330,11 @@ public class Principal extends javax.swing.JFrame {
             if (c instanceof Interfaz) {
                 if (((Interfaz) c).isSelec()) {
                     ((Interfaz) c).paintback(Color.red);
+                }
+            }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.red);
                 }
             }
         }
@@ -2102,6 +2367,11 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.cyan);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.cyan);
+                }
+            }
         }
     }//GEN-LAST:event_jPanel28MouseClicked
 
@@ -2122,6 +2392,11 @@ public class Principal extends javax.swing.JFrame {
             if (c instanceof Interfaz) {
                 if (((Interfaz) c).isSelec()) {
                     ((Interfaz) c).paintback(Color.pink);
+                }
+            }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.pink);
                 }
             }
         }
@@ -2146,6 +2421,11 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.orange);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.orange);
+                }
+            }
         }
     }//GEN-LAST:event_jPanel24MouseClicked
 
@@ -2166,6 +2446,11 @@ public class Principal extends javax.swing.JFrame {
             if (c instanceof Interfaz) {
                 if (((Interfaz) c).isSelec()) {
                     ((Interfaz) c).paintback(Color.yellow);
+                }
+            }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.yellow);
                 }
             }
         }
@@ -2190,6 +2475,11 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.green);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.green);
+                }
+            }
         }
     }//GEN-LAST:event_jPanel26MouseClicked
 
@@ -2212,6 +2502,11 @@ public class Principal extends javax.swing.JFrame {
                     ((Interfaz) c).paintback(Color.magenta);
                 }
             }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.magenta);
+                }
+            }
         }
     }//GEN-LAST:event_jPanel27MouseClicked
 
@@ -2232,6 +2527,11 @@ public class Principal extends javax.swing.JFrame {
             if (c instanceof Interfaz) {
                 if (((Interfaz) c).isSelec()) {
                     ((Interfaz) c).paintback(Color.blue);
+                }
+            }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).paintback(Color.blue);
                 }
             }
         }
@@ -2582,7 +2882,7 @@ public class Principal extends javax.swing.JFrame {
         Rombo r=new Rombo();
         r.setVisible(true);
         jpn_diagrama.add(r);
-        figs.add(r);
+        
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
     }//GEN-LAST:event_jlb_desicionjPanel11MouseClicked
@@ -2596,7 +2896,6 @@ public class Principal extends javax.swing.JFrame {
         circulo c=new circulo();
         c.setVisible(true);
         jpn_diagrama.add(c);
-        figs.add(c);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
     }//GEN-LAST:event_jlb_ciclojPanel11MouseClicked
@@ -2610,7 +2909,6 @@ public class Principal extends javax.swing.JFrame {
         Paralelogramo p=new Paralelogramo();
         p.setVisible(true);
         jpn_diagrama.add(p);
-        figs.add(p);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
     }//GEN-LAST:event_jlb_datosjPanel11MouseClicked
@@ -2954,6 +3252,258 @@ public class Principal extends javax.swing.JFrame {
     private void jPanel39jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel39jPanel11MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel39jPanel11MouseClicked
+    public BufferedImage captureComponent(Component component) {
+        BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_RGB);
+        component.paint(image.getGraphics());
+        return image;
+    }
+
+    public void saveAsJPG(Component component) {
+        //Guardar solo en PNG
+JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Imagen como PNG");
+
+        int userSelection = fileChooser.showSaveDialog(JD_UML);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+            int Pa = jpn_UML.getWidth();
+            int Pal = jpn_UML.getHeight();
+
+            BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = bf.createGraphics();
+
+            jpn_UML.paint(g2d);
+            g2d.dispose();
+
+            try {
+                ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                JOptionPane.showMessageDialog(JD_UML, "Imagen creada exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(JD_UML, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
+        }
+    }
+    public void saveAsJPG2(Component component) {
+        //Guardar solo en PNG
+JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Imagen como PNG");
+
+        int userSelection = fileChooser.showSaveDialog(JD_DdF);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+            int Pa = jpn_diagrama.getWidth();
+            int Pal = jpn_diagrama.getHeight();
+
+            BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = bf.createGraphics();
+
+            jpn_diagrama.paint(g2d);
+            g2d.dispose();
+
+            try {
+                ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                JOptionPane.showMessageDialog(JD_UML, "Imagen creada exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            JOptionPane.showMessageDialog(JD_UML, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
+        }
+    }
+    public void SaveAsPdf2(){
+        //Guardar en PNG Y PDF a la vez
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Imagen como PNG y PDF");
+
+        int userSelection = fileChooser.showSaveDialog(JD_DdF);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+            int Pa = jpn_diagrama.getWidth();
+            int Pal = jpn_diagrama.getHeight();
+
+            BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = bf.createGraphics();
+
+            jpn_diagrama.paint(g2d);
+            g2d.dispose();
+            jpn_diagrama.paint(g2d);
+            g2d.dispose();
+
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(new PDRectangle(Pa, Pal));
+            document.addPage(page);
+           
+            try {
+                ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                JOptionPane.showMessageDialog(JD_DdF, "Imagen creada exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            try {
+                PDPageContentStream contentStream = new PDPageContentStream(document, page);
+                contentStream.drawImage(PDImageXObject.createFromFile(nombre + ".png", document), TOP_ALIGNMENT, TOP_ALIGNMENT);
+                contentStream.close();
+                document.save(new File(nombre + ".pdf"));
+                document.close();
+                JOptionPane.showMessageDialog(JD_DdF, "Archivo pdf creado exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(JD_UML, "No se seleccionó ninguna ubicación para guardar la imagen.");
+        } 
+    }
+    public void SaveAsPdf(){
+        //Guardar en PNG Y PDF a la vez
+JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Guardar Imagen como PNG y PDF");
+
+        int userSelection = fileChooser.showSaveDialog(JD_UML);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            File fileToSave = fileChooser.getSelectedFile();
+            String nombre = fileToSave.getAbsolutePath(); // Obtener la ruta completa seleccionada por el usuario
+
+            int Pa = jpn_UML.getWidth();
+            int Pal = jpn_UML.getHeight();
+
+            BufferedImage bf = new BufferedImage(Pa, Pal, BufferedImage.TYPE_INT_RGB);
+            Graphics2D g2d = bf.createGraphics();
+
+            jpn_UML.paint(g2d);
+            g2d.dispose();
+            jpn_UML.paint(g2d);
+            g2d.dispose();
+
+            PDDocument document = new PDDocument();
+            PDPage page = new PDPage(new PDRectangle(Pa, Pal));
+            document.addPage(page);
+           
+            try {
+                ImageIO.write(bf, "PNG", new File(nombre + ".png"));
+                JOptionPane.showMessageDialog(JD_UML, "Imagen creada exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
+            try {
+                PDPageContentStream contentStream = new PDPageContentStream(document, page);
+                contentStream.drawImage(PDImageXObject.createFromFile(nombre + ".png", document), TOP_ALIGNMENT, TOP_ALIGNMENT);
+                contentStream.close();
+                document.save(new File(nombre + ".pdf"));
+                document.close();
+                JOptionPane.showMessageDialog(JD_UML, "Archivo pdf creado exitosamente");
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(JD_UML, "No se seleccionó ninguna ubicación para guardar la imagen.");
+        } 
+    }
+    private void bt_cambiarfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cambiarfontMouseClicked
+        // TODO add your handling code here:
+        Font f=new Font(cb_font.getSelectedItem().toString(), cb_style.getSelectedIndex(), Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+        for (Component c : jpn_UML.getComponents()) {
+            if(c instanceof mypanel){
+                ((mypanel)c).setfont(f);
+            }
+            else if(c instanceof Abstractpanel){
+                ((Abstractpanel)c).setfont(f);
+            }
+            else if(c instanceof Interfaz){
+                ((Interfaz)c).setfont(f);
+            }
+            else if(c instanceof panelHerencia){
+                ((panelHerencia)c).setfont(f);
+            }
+            
+        }
+    }//GEN-LAST:event_bt_cambiarfontMouseClicked
+
+    private void jlb_desicion1jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_desicion1jPanel11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jlb_desicion1jPanel11MouseClicked
+
+    private void jPanel53jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel53jPanel11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel53jPanel11MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        if(evt.isMetaDown()){
+            
+        }
+        else{
+            Color co=JColorChooser.showDialog(JD_DdF, "Seleccione el color", Color.yellow);
+            for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+                Component c=jpn_diagrama.getComponent(i);
+                if(c instanceof Rombo){
+                    if(((Rombo)c).isSelec()){
+                        ((Rombo)c).settexto(co);
+                    }
+                }
+                if (c instanceof circulo){
+                 if(((circulo)c).isSelec()){
+                        ((circulo)c).settexto(co);
+                    }
+                }
+                if (c instanceof Proceso){
+                    if(((Proceso)c).isSelec()){
+                        ((Proceso)c).settexto(co);
+                    }
+                }
+                if (c instanceof Paralelogramo){
+                    if(((Paralelogramo)c).isSelec()){
+                        ((Paralelogramo)c).settexto(co);
+                    }
+                }
+                
+            }
+        }
+    }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+        // TODO add your handling code here:
+        Color col=JColorChooser.showDialog(JD_UML, "Eliga el color de la letra", Color.yellow);
+        for (int i = 0; i < jpn_UML.getComponentCount(); i++) {
+            Component c = jpn_UML.getComponent(i);
+            if (c instanceof mypanel) {
+                if (((mypanel) c).isSelec()) {
+                    ((mypanel) c).settexto(col);
+                }
+            }
+            if (c instanceof Abstractpanel) {
+                if (((Abstractpanel) c).isSelec()) {
+                    ((Abstractpanel) c).settexto(col);
+                }
+            }
+            if (c instanceof Interfaz) {
+                if (((Interfaz) c).isSelec()) {
+                    ((Interfaz) c).settexto(col);
+                }
+            }
+            if (c instanceof panelHerencia) {
+                if (((panelHerencia) c).isSelec()) {
+                    ((panelHerencia) c).settexto(col);
+                }
+            }
+            
+        }
+    }//GEN-LAST:event_jLabel11MouseClicked
 
     private void Bt_setfontActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Bt_setfontActionPerformed
         // TODO add your handling code here:
@@ -2979,25 +3529,29 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Bt_setfontMouseClicked
 
-    private void bt_cambiarfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cambiarfontMouseClicked
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
-        Font f=new Font(cb_font.getSelectedItem().toString(), cb_style.getSelectedIndex(), Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
-        for (Component c : jpn_UML.getComponents()) {
-            if(c instanceof mypanel){
-                ((mypanel)c).setfont(f);
-            }
-            else if(c instanceof Abstractpanel){
-                ((Abstractpanel)c).setfont(f);
-            }
-            else if(c instanceof Interfaz){
-                ((Interfaz)c).setfont(f);
-            }
-            else if(c instanceof panelHerencia){
-                ((panelHerencia)c).setfont(f);
-            }
-            
-        }
-    }//GEN-LAST:event_bt_cambiarfontMouseClicked
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        SaveAsPdf2();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        saveAsJPG(jpn_UML);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        // TODO add your handling code here:
+        SaveAsPdf();
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        saveAsJPG2(jpn_diagrama);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     public String GenerarCodeUml() {
         pan=new ArrayList<>();
@@ -3247,11 +3801,11 @@ public class Principal extends javax.swing.JFrame {
     }
 
     int cont = 0;
-    Component c;
     public static ArrayList<JPanel> pan = new ArrayList<>();
-    public static ArrayList<JPanel> figs = new ArrayList<>();
-    StyledDocument doc;
-    Style estilo;
+    ArrayList<JPanel> figs = new ArrayList<>();
+    public static JPopupMenu pop=new JPopupMenu();
+     JMenuItem op2=new JMenuItem("Agregar al generador");
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_setfont;
     private javax.swing.JDialog JD_Codigo;
@@ -3270,6 +3824,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_tamaño;
     private javax.swing.JComboBox<String> cb_tamaño1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -3292,6 +3848,22 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -3336,6 +3908,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel51;
     private javax.swing.JPanel jPanel52;
+    private javax.swing.JPanel jPanel53;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -3346,6 +3919,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jlb_ciclo;
     private javax.swing.JLabel jlb_datos;
     private javax.swing.JLabel jlb_desicion;
+    private javax.swing.JLabel jlb_desicion1;
     private javax.swing.JPanel jpn_UML;
     private javax.swing.JPanel jpn_diagrama;
     private javax.swing.JLabel lb_GenerarCode;

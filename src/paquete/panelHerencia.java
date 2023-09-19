@@ -406,6 +406,10 @@ public class panelHerencia extends JPanel implements MouseListener, MouseMotionL
         nvo+="  class";
         setNAME(nvo);
     }
+    public void settexto(Color c){
+        txt.setForeground(c);
+        txt2.setForeground(c);
+    }
     
 }
 

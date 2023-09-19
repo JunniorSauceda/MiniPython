@@ -36,7 +36,7 @@ import javax.swing.SwingUtilities;
 
 public class Rombo extends JPanel implements MouseListener, MouseMotionListener, ActionListener{
     private JPopupMenu men = new JPopupMenu();
-    private JMenuItem it1=new JMenuItem("Eliminar");
+    private JMenuItem it2=new JMenuItem("Eliminar");
     private Color romboColor = Color.red; // Color predeterminado
     private JTextArea textPane;
     private Point inicial;
@@ -46,8 +46,19 @@ public class Rombo extends JPanel implements MouseListener, MouseMotionListener,
     
     public Rombo() {
         // Constructor: Configurar el panel y agregar componentes
-        it1.addActionListener(this);
-        men.add(it1);
+        it2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel xf = (JPanel) figselec.getParent();
+                xf.remove(figselec);
+                xf.repaint();
+
+
+
+            }
+        });
+        men.add(it2);
+        add(men);
         setLayout(null);
         setSize(200,100);
         setBackground(Color.white);
@@ -56,7 +67,7 @@ public class Rombo extends JPanel implements MouseListener, MouseMotionListener,
         this.addMouseMotionListener((MouseMotionListener) this);
         // Crear un JTextPane y agregarlo al centro del panel
         textPane = new JTextArea();
-        textPane.setText("Aqui va el texto de instruccion");
+        textPane.setText("");
         textPane.setBackground(Color.white); // Establecer el fondo del JTextPane al color del panel
         textPane.setForeground(Color.black); // Establecer el color del texto en blanco
         textPane.setBorder(null); // Eliminar el borde del JTextPane
@@ -78,6 +89,14 @@ public class Rombo extends JPanel implements MouseListener, MouseMotionListener,
     public void setRomboColor(Color color) {
     this.romboColor = color;
     repaint(); // Vuelve a dibujar el componente para reflejar el nuevo color
+    }
+
+    public JPopupMenu getMen() {
+        return men;
+    }
+
+    public void setMen(JPopupMenu men) {
+        this.men = men;
     }
     
     @Override
@@ -168,11 +187,24 @@ public class Rombo extends JPanel implements MouseListener, MouseMotionListener,
         String nvo=JOptionPane.showInputDialog(this, "Ingrese el nuevo nombre");
         nvo+="  class";
     }
+
+    public boolean isSelec() {
+        return selec;
+    }
+
+    public void setSelec(boolean selec) {
+        this.selec = selec;
+    }
     
     public void setfont(Font F){
         if(selec){
             textPane.setFont(F);
         }
     }
-    
+    public void setItem(JMenuItem j){
+        men.add(j);
+    }
+    public void settexto(Color c){
+        textPane.setForeground(c);
+    }
 }

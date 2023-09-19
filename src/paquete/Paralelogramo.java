@@ -31,6 +31,18 @@ public class Paralelogramo extends JPanel implements MouseListener, MouseMotionL
     
     
     public Paralelogramo(){
+        it2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JPanel xf = (JPanel) figselec.getParent();
+                xf.remove(figselec);
+                xf.repaint();
+
+
+
+            }
+        });
+        add(men);
         this.addMouseListener((MouseListener) this);
         this.addMouseMotionListener((MouseMotionListener) this);
         setLayout(null);
@@ -60,6 +72,15 @@ public class Paralelogramo extends JPanel implements MouseListener, MouseMotionL
         g2d.setColor(color); // Cambia el color de fondo a tu elección
         g2d.fill(path);
     }
+
+    public JPopupMenu getMen() {
+        return men;
+    }
+
+    public void setMen(JPopupMenu men) {
+        this.men = men;
+    }
+    
     public void actionPerformed(ActionEvent e) {
         JPanel p=(JPanel)getParent();
         p.remove(this);
@@ -128,4 +149,21 @@ public class Paralelogramo extends JPanel implements MouseListener, MouseMotionL
             txt.setFont(F);
         }
     }
+    public void setItem(JMenuItem j){
+        men.add(j);
+    }
+    public void settexto(Color c){
+        txt.setForeground(c);
+        area.setForeground(c);
+        
+    }
+
+    public boolean isSelec() {
+        return selec;
+    }
+
+    public void setSelec(boolean selec) {
+        this.selec = selec;
+    }
+    
 }
