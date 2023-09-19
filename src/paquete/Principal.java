@@ -21,8 +21,16 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.font.GraphicAttribute;
 import java.awt.image.BufferedImage;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
@@ -54,44 +62,13 @@ public class Principal extends javax.swing.JFrame {
      * Creates new form Principal
      */
     public Principal() {
-        this.setAlwaysOnTop(true);
+
         initComponents();
-        
-        op2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-              JMenuItem I=(JMenuItem)e.getSource();
-              JPopupMenu P=(JPopupMenu)I.getParent();
-              Object J=P.getParent();
-              String s="";
-              if(J instanceof Rombo){
-                  J=(Rombo)J;
-                  figs.add((Rombo)J);
-                  s="Rombo";
-              }
-              if(J instanceof Paralelogramo){
-                  J=(Paralelogramo)J;
-                  figs.add((Paralelogramo)J);
-                  s="Para";
-              }
-              if(J instanceof Proceso){
-                  
-                  J=(Proceso)J;
-                  figs.add((Proceso)J);
-                  s="Process";
-              }
-              if(J instanceof circulo){
-                  J=(circulo)J;
-                  figs.add((circulo)J);
-                  s="Circu";
-              }
-              
-              
-                System.out.println("Se ha agregado el item "+s);
-            }
-        });;
+        this.setLayout(null);
+
         jPanel1.setVisible(true);
         Pn_UML.setVisible(false);
+
         Pn_DdF.setVisible(false);
         DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_font.getModel();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -151,6 +128,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         JD_DdF = new javax.swing.JDialog();
         jPanel15 = new javax.swing.JPanel();
@@ -195,6 +173,7 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         JD_Codigo = new javax.swing.JDialog();
         jPanel11 = new javax.swing.JPanel();
@@ -247,7 +226,6 @@ public class Principal extends javax.swing.JFrame {
         lb_crearuml1 = new javax.swing.JLabel();
 
         JD_UML.setTitle("Crear Diagrama de UML");
-        JD_UML.setAlwaysOnTop(true);
         JD_UML.setResizable(false);
 
         jPanel6.setBackground(new java.awt.Color(0, 102, 102));
@@ -808,10 +786,33 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.add(jMenu6);
 
         jMenuItem7.setText("Guardar Binarios");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem7);
 
-        jMenuItem8.setText("Abrir UML");
+        jMenuItem8.setText("Imprimir UML");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem8);
+
+        jMenuItem10.setText("Abrir UML");
+        jMenuItem10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem10MouseClicked(evt);
+            }
+        });
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem10);
 
         jMenuBar1.add(jMenu1);
 
@@ -832,7 +833,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         JD_DdF.setTitle("Crear Diagrama de Flujo");
-        JD_DdF.setAlwaysOnTop(true);
 
         jPanel15.setBackground(new java.awt.Color(0, 102, 102));
         jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1469,13 +1469,21 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem1.setText("Guardar Como Binario");
         jMenu3.add(jMenuItem1);
 
-        jMenuItem2.setText("Abrir UML");
+        jMenuItem2.setText("Imprimir UML");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem2);
+
+        jMenuItem9.setText("Abrir UML");
+        jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem9MouseClicked(evt);
+            }
+        });
+        jMenu3.add(jMenuItem9);
 
         jMenuBar2.add(jMenu3);
 
@@ -1496,7 +1504,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         JD_Codigo.setTitle("Generador de Codigo");
-        JD_Codigo.setAlwaysOnTop(true);
 
         jPanel11.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -1548,7 +1555,6 @@ public class Principal extends javax.swing.JFrame {
         );
 
         JD_herencia.setTitle("Crear Clase Hija");
-        JD_herencia.setAlwaysOnTop(true);
 
         jPanel10.setBackground(new java.awt.Color(204, 204, 204));
 
@@ -1649,6 +1655,7 @@ public class Principal extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
@@ -2153,7 +2160,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void lb_crearumlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_crearumlMouseClicked
         // TODO add your handling code here:
-        DefaultComboBoxModel modelo=(DefaultComboBoxModel) cb_font.getModel();
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_font.getModel();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String fontNames[] = ge.getAvailableFontFamilyNames();
         for (int i = 0; i < fontNames.length; i++) {
@@ -2182,7 +2189,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void lb_creardiagMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_creardiagMouseClicked
         // TODO add your handling code here:
-        DefaultComboBoxModel modelo=(DefaultComboBoxModel) cb_font2.getModel();
+        DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_font2.getModel();
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String fontNames[] = ge.getAvailableFontFamilyNames();
         for (int i = 0; i < fontNames.length; i++) {
@@ -2243,7 +2250,7 @@ public class Principal extends javax.swing.JFrame {
                     ((panelHerencia) c).paintback(Color.gray);
                 }
             }
-            
+
         }
     }//GEN-LAST:event_jPanel17MouseClicked
 
@@ -2895,10 +2902,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jlb_desicionjPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_desicionjPanel11MouseClicked
         // TODO add your handling code here:
-        Rombo r=new Rombo();
+        Rombo r = new Rombo();
         r.setVisible(true);
         jpn_diagrama.add(r);
-        
+
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
     }//GEN-LAST:event_jlb_desicionjPanel11MouseClicked
@@ -2909,7 +2916,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jlb_ciclojPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_ciclojPanel11MouseClicked
         // TODO add your handling code here:
-        circulo c=new circulo();
+        circulo c = new circulo();
         c.setVisible(true);
         jpn_diagrama.add(c);
         jpn_diagrama.revalidate();
@@ -2922,7 +2929,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jlb_datosjPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_datosjPanel11MouseClicked
         // TODO add your handling code here:
-        Paralelogramo p=new Paralelogramo();
+        Paralelogramo p = new Paralelogramo();
         p.setVisible(true);
         jpn_diagrama.add(p);
         jpn_diagrama.revalidate();
@@ -2935,32 +2942,30 @@ public class Principal extends javax.swing.JFrame {
 
     private void lb_GenerarFlujojPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_GenerarFlujojPanel11MouseClicked
         // TODO add your handling code here:
-        Arbol tree=genarbolflujo();
+        Arbol tree = genarbolflujo();
         String res = tree.recorrer(tree.getRaiz());
         System.out.println(res);
-        
-        
+
+
     }//GEN-LAST:event_lb_GenerarFlujojPanel11MouseClicked
-    public Arbol genarbolflujo (){
-        
-        
+    public Arbol genarbolflujo() {
+
         Arbol flujograma = new Arbol();
         flujograma.setRaiz(new FormaGeneral("Inicio"));
         boolean existen = true;
         int cont = 2;
         int tamanio = 0;
- 
+
         for (FormaGeneral fig : figs) {
 
-            String [] temp = fig.getIndice().getText().split("\\.");
+            String[] temp = fig.getIndice().getText().split("\\.");
 
             if (temp.length >= cont) {
                 flujograma.agregar(flujograma.getRaiz(), fig);
-                System.out.println("Se va a agregar la figura "+fig);
-            }
-            else {
-                System.out.println("Se va a agregar la figura "+fig);
-                flujograma.getRaiz().setHijo(fig);       
+                System.out.println("Se va a agregar la figura " + fig);
+            } else {
+                System.out.println("Se va a agregar la figura " + fig);
+                flujograma.getRaiz().setHijo(fig);
             }
             if (figs.indexOf(fig) == figs.size()) {
                 cont++;
@@ -2971,13 +2976,10 @@ public class Principal extends javax.swing.JFrame {
             }
         }
         tamanio++;
-            
+
         //}
-        
-        
-        
         return flujograma;
-        
+
     }
     private void jPanel38jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel38jPanel11MouseClicked
         // TODO add your handling code here:
@@ -2985,26 +2987,25 @@ public class Principal extends javax.swing.JFrame {
 
     private void jPanel41MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel41MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.gray);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.gray);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.gray);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.gray);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.gray);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.gray);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.gray);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.gray);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.gray);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.gray);
                 }
             }
         }
@@ -3012,55 +3013,53 @@ public class Principal extends javax.swing.JFrame {
 
     private void jPanel42MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel42MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.lightGray);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.lightGray);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.lightGray);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.lightGray);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.lightGray);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.lightGray);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.lightGray);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.lightGray);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.lightGray);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.lightGray);
                 }
-                
+
             }
         }
-    
+
     }//GEN-LAST:event_jPanel42MouseClicked
 
     private void jPanel43MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel43MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.darkGray);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.darkGray);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.darkGray);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.darkGray);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.darkGray);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.darkGray);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.darkGray);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.darkGray);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.darkGray);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.darkGray);
                 }
             }
         }
@@ -3068,254 +3067,245 @@ public class Principal extends javax.swing.JFrame {
 
     private void jPanel44MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel44MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.black);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.black);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.black);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.black);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.black);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.black);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.black);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.black);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.black);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.black);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel44MouseClicked
 
     private void jPanel45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel45MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.red);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.red);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.red);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.red);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.red);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.red);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.red);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.red);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.red);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.red);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel45MouseClicked
 
     private void jPanel46MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel46MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.pink);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.pink);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.pink);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.pink);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.pink);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.pink);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.pink);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.pink);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.pink);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.pink);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel46MouseClicked
 
     private void jPanel47MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel47MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.orange);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.orange);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.orange);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.orange);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.orange);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.orange);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.orange);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.orange);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.orange);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.orange);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel47MouseClicked
 
     private void jPanel48MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel48MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.yellow);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.yellow);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.yellow);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.yellow);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.yellow);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.yellow);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.yellow);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.yellow);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.yellow);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.yellow);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel48MouseClicked
 
     private void jPanel49MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel49MouseClicked
         // TODO add your handling code here:
-        
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.green);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.green);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.green);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.green);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.green);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.green);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.green);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.green);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.green);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.green);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel49MouseClicked
 
     private void jPanel50MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel50MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.magenta);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.magenta);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.magenta);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.magenta);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.magenta);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.magenta);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.magenta);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.magenta);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.magenta);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.magenta);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel50MouseClicked
 
     private void jPanel51MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel51MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.cyan);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.cyan);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.cyan);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.cyan);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.cyan);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.cyan);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.cyan);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.cyan);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.cyan);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.cyan);
                 }
-                
+
             }
         }
-        
+
     }//GEN-LAST:event_jPanel51MouseClicked
 
     private void jPanel52MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel52MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
+        if (evt.isMetaDown()) {
+
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    ((Rombo)c).paintback(Color.blue);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    ((Rombo) c).paintback(Color.blue);
                 }
-                if (c instanceof circulo){
-                 ((circulo)c).paintback(Color.blue);
+                if (c instanceof circulo) {
+                    ((circulo) c).paintback(Color.blue);
                 }
-                if (c instanceof Proceso){
-                 ((Proceso)c).paintback(Color.blue);
+                if (c instanceof Proceso) {
+                    ((Proceso) c).paintback(Color.blue);
                 }
-                if (c instanceof Paralelogramo){
-                 ((Paralelogramo)c).paintback(Color.blue);
+                if (c instanceof Paralelogramo) {
+                    ((Paralelogramo) c).paintback(Color.blue);
                 }
-                if (c instanceof InicioFin){
-                 ((InicioFin)c).paintback(Color.blue);
+                if (c instanceof InicioFin) {
+                    ((InicioFin) c).paintback(Color.blue);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jPanel52MouseClicked
@@ -3334,7 +3324,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void lb_procesojPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_procesojPanel11MouseClicked
         // TODO add your handling code here:
-        Proceso p=new Proceso();
+        Proceso p = new Proceso();
         p.setVisible(true);
         jpn_diagrama.add(p);
         jpn_diagrama.revalidate();
@@ -3352,7 +3342,7 @@ public class Principal extends javax.swing.JFrame {
 
     public void saveAsJPG(Component component) {
         //Guardar solo en PNG
-JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Imagen como PNG");
 
         int userSelection = fileChooser.showSaveDialog(JD_UML);
@@ -3380,9 +3370,10 @@ JFileChooser fileChooser = new JFileChooser();
             JOptionPane.showMessageDialog(JD_UML, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
         }
     }
+
     public void saveAsJPG2(Component component) {
         //Guardar solo en PNG
-JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Imagen como PNG");
 
         int userSelection = fileChooser.showSaveDialog(JD_DdF);
@@ -3410,7 +3401,8 @@ JFileChooser fileChooser = new JFileChooser();
             JOptionPane.showMessageDialog(JD_UML, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
         }
     }
-    public void SaveAsPdf2(){
+
+    public void SaveAsPdf2() {
         //Guardar en PNG Y PDF a la vez
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Imagen como PNG y PDF");
@@ -3435,14 +3427,14 @@ JFileChooser fileChooser = new JFileChooser();
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(new PDRectangle(Pa, Pal));
             document.addPage(page);
-           
+
             try {
                 ImageIO.write(bf, "PNG", new File(nombre + ".png"));
                 JOptionPane.showMessageDialog(JD_DdF, "Imagen creada exitosamente");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
+
             try {
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
                 contentStream.drawImage(PDImageXObject.createFromFile(nombre + ".png", document), TOP_ALIGNMENT, TOP_ALIGNMENT);
@@ -3456,11 +3448,12 @@ JFileChooser fileChooser = new JFileChooser();
             }
         } else {
             JOptionPane.showMessageDialog(JD_UML, "No se seleccionó ninguna ubicación para guardar la imagen.");
-        } 
+        }
     }
-    public void SaveAsPdf(){
+
+    public void SaveAsPdf() {
         //Guardar en PNG Y PDF a la vez
-JFileChooser fileChooser = new JFileChooser();
+        JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Guardar Imagen como PNG y PDF");
 
         int userSelection = fileChooser.showSaveDialog(JD_UML);
@@ -3483,14 +3476,14 @@ JFileChooser fileChooser = new JFileChooser();
             PDDocument document = new PDDocument();
             PDPage page = new PDPage(new PDRectangle(Pa, Pal));
             document.addPage(page);
-           
+
             try {
                 ImageIO.write(bf, "PNG", new File(nombre + ".png"));
                 JOptionPane.showMessageDialog(JD_UML, "Imagen creada exitosamente");
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            
+
             try {
                 PDPageContentStream contentStream = new PDPageContentStream(document, page);
                 contentStream.drawImage(PDImageXObject.createFromFile(nombre + ".png", document), TOP_ALIGNMENT, TOP_ALIGNMENT);
@@ -3504,36 +3497,33 @@ JFileChooser fileChooser = new JFileChooser();
             }
         } else {
             JOptionPane.showMessageDialog(JD_UML, "No se seleccionó ninguna ubicación para guardar la imagen.");
-        } 
+        }
     }
     private void bt_cambiarfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cambiarfontMouseClicked
         // TODO add your handling code here:
-        Font f=new Font(cb_font.getSelectedItem().toString(), cb_style.getSelectedIndex(), Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+        Font f = new Font(cb_font.getSelectedItem().toString(), cb_style.getSelectedIndex(), Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
         for (Component c : jpn_UML.getComponents()) {
-            if(c instanceof mypanel){
-                ((mypanel)c).setfont(f);
+            if (c instanceof mypanel) {
+                ((mypanel) c).setfont(f);
+            } else if (c instanceof Abstractpanel) {
+                ((Abstractpanel) c).setfont(f);
+            } else if (c instanceof Interfaz) {
+                ((Interfaz) c).setfont(f);
+            } else if (c instanceof panelHerencia) {
+                ((panelHerencia) c).setfont(f);
             }
-            else if(c instanceof Abstractpanel){
-                ((Abstractpanel)c).setfont(f);
-            }
-            else if(c instanceof Interfaz){
-                ((Interfaz)c).setfont(f);
-            }
-            else if(c instanceof panelHerencia){
-                ((panelHerencia)c).setfont(f);
-            }
-            
+
         }
     }//GEN-LAST:event_bt_cambiarfontMouseClicked
 
     private void jlb_desicion1jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_desicion1jPanel11MouseClicked
         // TODO add your handling code here:
-        InicioFin I= new InicioFin();
+        InicioFin I = new InicioFin();
         I.setVisible(true);
         jpn_diagrama.add(I);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
-        
+
     }//GEN-LAST:event_jlb_desicion1jPanel11MouseClicked
 
     private void jPanel53jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel53jPanel11MouseClicked
@@ -3542,46 +3532,45 @@ JFileChooser fileChooser = new JFileChooser();
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         // TODO add your handling code here:
-        if(evt.isMetaDown()){
-            
-        }
-        else{
-            Color co=JColorChooser.showDialog(JD_DdF, "Seleccione el color", Color.yellow);
+        if (evt.isMetaDown()) {
+
+        } else {
+            Color co = JColorChooser.showDialog(JD_DdF, "Seleccione el color", Color.yellow);
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c=jpn_diagrama.getComponent(i);
-                if(c instanceof Rombo){
-                    if(((Rombo)c).isSelec()){
-                        ((Rombo)c).settexto(co);
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    if (((Rombo) c).isSelec()) {
+                        ((Rombo) c).settexto(co);
                     }
                 }
-                if (c instanceof circulo){
-                 if(((circulo)c).isSelec()){
-                        ((circulo)c).settexto(co);
+                if (c instanceof circulo) {
+                    if (((circulo) c).isSelec()) {
+                        ((circulo) c).settexto(co);
                     }
                 }
-                if (c instanceof Proceso){
-                    if(((Proceso)c).isSelec()){
-                        ((Proceso)c).settexto(co);
+                if (c instanceof Proceso) {
+                    if (((Proceso) c).isSelec()) {
+                        ((Proceso) c).settexto(co);
                     }
                 }
-                if (c instanceof Paralelogramo){
-                    if(((Paralelogramo)c).isSelec()){
-                        ((Paralelogramo)c).settexto(co);
+                if (c instanceof Paralelogramo) {
+                    if (((Paralelogramo) c).isSelec()) {
+                        ((Paralelogramo) c).settexto(co);
                     }
                 }
-                if (c instanceof InicioFin){
-                    if(((InicioFin)c).isSelec()){
-                        ((InicioFin)c).settexto(co);
+                if (c instanceof InicioFin) {
+                    if (((InicioFin) c).isSelec()) {
+                        ((InicioFin) c).settexto(co);
                     }
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jLabel10MouseClicked
 
     private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
         // TODO add your handling code here:
-        Color col=JColorChooser.showDialog(JD_UML, "Eliga el color de la letra", Color.yellow);
+        Color col = JColorChooser.showDialog(JD_UML, "Eliga el color de la letra", Color.yellow);
         for (int i = 0; i < jpn_UML.getComponentCount(); i++) {
             Component c = jpn_UML.getComponent(i);
             if (c instanceof mypanel) {
@@ -3604,7 +3593,7 @@ JFileChooser fileChooser = new JFileChooser();
                     ((panelHerencia) c).settexto(col);
                 }
             }
-            
+
         }
     }//GEN-LAST:event_jLabel11MouseClicked
 
@@ -3614,29 +3603,27 @@ JFileChooser fileChooser = new JFileChooser();
 
     private void Bt_setfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bt_setfontMouseClicked
         // TODO add your handling code here:
-        Font f=new Font(cb_font2.getSelectedItem().toString(), cb_Style.getSelectedIndex(), Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
+        Font f = new Font(cb_font2.getSelectedItem().toString(), cb_Style.getSelectedIndex(), Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
         for (Component c : jpn_diagrama.getComponents()) {
-            if(c instanceof Rombo){
-                ((Rombo)c).setfont(f);
+            if (c instanceof Rombo) {
+                ((Rombo) c).setfont(f);
+            } else if (c instanceof Proceso) {
+                ((Proceso) c).setfont(f);
+            } else if (c instanceof circulo) {
+                ((circulo) c).setfont(f);
+            } else if (c instanceof Paralelogramo) {
+                ((Paralelogramo) c).setfont(f);
+            } else if (c instanceof InicioFin) {
+                ((InicioFin) c).setfont(f);
             }
-            else if(c instanceof Proceso){
-                ((Proceso)c).setfont(f);
-            }
-            else if(c instanceof circulo){
-                ((circulo)c).setfont(f);
-            }
-            else if(c instanceof Paralelogramo){
-                ((Paralelogramo)c).setfont(f);
-            }
-            else if(c instanceof InicioFin){
-                ((InicioFin)c).setfont(f);
-            }
-            
+
         }
     }//GEN-LAST:event_Bt_setfontMouseClicked
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
+
+        PrintRecord(jpn_diagrama);
+
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -3661,291 +3648,632 @@ JFileChooser fileChooser = new JFileChooser();
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        int con=0;
+        int con = 0;
         for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-            Component c=jpn_diagrama.getComponent(i);
-            if(c instanceof Rombo){
-                if (((Rombo)c).isSelec()) {
+            Component c = jpn_diagrama.getComponent(i);
+            if (c instanceof Rombo) {
+                if (((Rombo) c).isSelec()) {
+                    con++;
+                }
+            } else if (c instanceof Proceso) {
+                if (((Proceso) c).isSelec()) {
+                    con++;
+                }
+            } else if (c instanceof circulo) {
+                if (((circulo) c).isSelec()) {
+                    con++;
+                }
+            } else if (c instanceof Paralelogramo) {
+                if (((Paralelogramo) c).isSelec()) {
+                    con++;
+                }
+            } else if (c instanceof InicioFin) {
+                if (((InicioFin) c).isSelec()) {
                     con++;
                 }
             }
-            else if(c instanceof Proceso){
-                if (((Proceso)c).isSelec()) {
-                    con++;
-                }
-            }
-            else if(c instanceof circulo){
-                if (((circulo)c).isSelec()) {
-                    con++;
-                }
-            }
-            else if(c instanceof Paralelogramo){
-                if (((Paralelogramo)c).isSelec()) {
-                    con++;
-                }
-            }
-            else if(c instanceof InicioFin){
-                if (((InicioFin)c).isSelec()) {
-                    con++;
-                }
-            }
-            
+
         }
-        if(con>1||con<1){
-            if(con>1){
+        if (con > 1 || con < 1) {
+            if (con > 1) {
                 JOptionPane.showMessageDialog(JD_DdF, "Por favor solo seleccione 1 imagen");
-            }
-            else{
+            } else {
                 JOptionPane.showMessageDialog(JD_DdF, "Por favor seleccione 1 imagen");
             }
-        }
-        else{
+        } else {
             for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-            Component c=jpn_diagrama.getComponent(i);
-            if(c instanceof Rombo){
-                if (((Rombo)c).isSelec()) {
-                    figs.add(((Rombo)c));
-                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    if (((Rombo) c).isSelec()) {
+                        figs.add(((Rombo) c));
+                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                    }
+                } else if (c instanceof Proceso) {
+                    if (((Proceso) c).isSelec()) {
+                        figs.add(((Proceso) c));
+                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                    }
+                } else if (c instanceof circulo) {
+                    if (((circulo) c).isSelec()) {
+                        figs.add(((circulo) c));
+                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                    }
+                } else if (c instanceof Paralelogramo) {
+                    if (((Paralelogramo) c).isSelec()) {
+                        figs.add(((Paralelogramo) c));
+                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                    }
+                } else if (c instanceof InicioFin) {
+                    if (((InicioFin) c).isSelec()) {
+                        figs.add(((InicioFin) c));
+                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                    }
                 }
             }
-            else if(c instanceof Proceso){
-                if (((Proceso)c).isSelec()) {
-                    figs.add(((Proceso)c));
-                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                }
-            }
-            else if(c instanceof circulo){
-                if (((circulo)c).isSelec()) {
-                    figs.add(((circulo)c));
-                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                }
-            }
-            else if(c instanceof Paralelogramo){
-                if (((Paralelogramo)c).isSelec()) {
-                    figs.add(((Paralelogramo)c));
-                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                }
-            }
-            else if(c instanceof InicioFin){
-                if (((InicioFin)c).isSelec()) {
-                    figs.add(((InicioFin)c));
-                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                }
-            }
-        }
         }
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+
+        PrintRecord(jpn_UML);
+
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser();
+
+        jfc.setCurrentDirectory(new File("C:\\Users\\Junnior Sauceda\\Desktop\\CosasProyecto"));
+
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+                "Archivos Jr",
+                "Jr");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
+
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            try {
+                File file = null;
+                if (jfc.getFileFilter().getDescription().equals("Archivos Jr")) {
+                    file = new File(jfc.getSelectedFile().getPath() + ".Jr");
+                } else {
+                    file = jfc.getSelectedFile();
+                }
+                fw = new FileOutputStream(file);
+                bw = new ObjectOutputStream(fw);
+
+                for (Object figura : pan) {
+                    if (figura instanceof panelHerencia) {
+
+                        panelHerencia temp = (panelHerencia) figura;
+                        DatosHerencia dat = GenDatosHeren(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    } else if (figura instanceof Abstractpanel) {
+
+                        Abstractpanel temp = (Abstractpanel) figura;
+                        DatosAbstrac dat = GenDatosAbs(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+
+                    } else if (figura instanceof Interfaz) {
+                        Interfaz temp = (Interfaz) figura;
+                        DatosInter dat = GenDatosInter(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+
+                    } else if (figura instanceof mypanel) {
+                        mypanel temp = (mypanel) figura;
+                        DatosSimp dat = GenDatosSimp(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    }
+//                    else if (figura instanceof Rombo) {
+//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+//                        ClasseFigura temp = (Rombo) figura;
+//                        DatosClasse dat = convertirDatosSimp(temp);
+//                        bw.writeObject(dat);
+//                        bw.flush();
+//                    }
+//                    else if (figura instanceof Paralelogramo) {
+//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+//                        ClasseFigura temp = (Paralelogramo) figura;
+//                        DatosClasse dat = convertirDatosSimp(temp);
+//                        bw.writeObject(dat);
+//                        bw.flush();
+//                    }
+//                    else if (figura instanceof circulo) {
+//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+//                        ClasseFigura temp = (circulo) figura;
+//                        DatosClasse dat = convertirDatosSimp(temp);
+//                        bw.writeObject(dat);
+//                        bw.flush();
+//                    }else if (figura instanceof Proceso) {
+//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+//                        ClasseFigura temp = (Proceso) figura;
+//                        DatosClasse dat = convertirDatosSimp(temp);
+//                        bw.writeObject(dat);
+//                        bw.flush();
+//                    }
+//                    else if (figura instanceof InicioFin) {
+//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
+//                        ClasseFigura temp = (InicioFin) figura;
+//                        DatosClasse dat = convertirDatosSimp(temp);
+//                        bw.writeObject(dat);
+//                        bw.flush();
+//                    }
+
+                }
+
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error");
+                e.printStackTrace();
+            }
+            try {
+                bw.close();
+                fw.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem9MouseClicked
+
+    private void jMenuItem10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem10MouseClicked
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_jMenuItem10MouseClicked
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        Desceri.clear();
+        File fichero = null;
+        FileInputStream entrada = null;
+        ObjectInputStream objeto = null;
+        try {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setCurrentDirectory(new File("C:\\Users\\Junnior Sauceda\\Desktop\\CosasProyecto"));
+            FileNameExtensionFilter filtro
+                    = new FileNameExtensionFilter(
+                            "Archivos Jr", "Jr");
+            jfc.setFileFilter(filtro);
+
+            int seleccion = jfc.showOpenDialog(JD_UML);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                int confirm = JOptionPane.showConfirmDialog(this, "Desea copiar los datos?");
+                if (confirm != JOptionPane.YES_OPTION) {
+                    jpn_UML.removeAll();
+                }
+                fichero = jfc.getSelectedFile();
+                entrada
+                        = new FileInputStream(fichero);
+                objeto
+                        = new ObjectInputStream(entrada);
+
+                try {
+
+                    while (true) {
+                        Object temp = objeto.readObject();
+                        if (temp instanceof DatosSimp) {
+                            DatosSimp S = (DatosSimp) temp;
+                            mypanel p = toPanelSimp(S);
+                            Desceri.add(p);
+                            jpn_UML.add(p);
+                        } else if (temp instanceof DatosAbstrac) {
+                            DatosAbstrac S = (DatosAbstrac) temp;
+                            Abstractpanel pa = toPanelAbs(S);
+                            Desceri.add(pa);
+                            jpn_UML.add(pa);
+                        } else if (temp instanceof DatosHerencia) {
+                            DatosHerencia S = (DatosHerencia) temp;
+                            panelHerencia pa = toPanelHer(S);
+                            Desceri.add(pa);
+                            jpn_UML.add(pa);
+                        } else if (temp instanceof DatosInter) {
+                            DatosInter S = (DatosInter) temp;
+                            Interfaz pa = toPanelInter(S);
+                            Desceri.add(pa);
+                            jpn_UML.add(pa);
+                        }
+
+                    }
+                } catch (Exception e) {
+
+                }
+                for (Object obj : Desceri) {
+                    Object Ob = obj;
+                    if (Ob instanceof mypanel) {
+
+                        mypanel P = ((mypanel) Ob);
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_UML.add(P);
+
+                        jpn_UML.revalidate();
+                        jpn_UML.repaint();
+                    } else if (Ob instanceof Abstractpanel) {
+                        Abstractpanel P = (Abstractpanel) Ob;
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_UML.add(P);
+                        jpn_UML.revalidate();
+                        jpn_UML.repaint();
+                    } else if (Ob instanceof panelHerencia) {
+                        panelHerencia P = (panelHerencia) Ob;
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_UML.add(P);
+                        jpn_UML.revalidate();
+                        jpn_UML.repaint();
+                    } else if (Ob instanceof Interfaz) {
+                        Interfaz P = (Interfaz) Ob;
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_UML.add(P);
+                        jpn_UML.revalidate();
+                        jpn_UML.repaint();
+                    }
+                }
+
+            } //fin if
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            objeto.close();
+            entrada.close();
+        } catch (IOException ex) {
+        }
+
+
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    public mypanel toPanelSimp(DatosSimp X) {
+        mypanel p = new mypanel();
+        p.setnom(X.getNombre());
+        p.paintback(X.getColor());
+        p.getTxt().setText(X.getMeth());
+        p.getTxt2().setText(X.getAtrib());
+        p.setfont(X.getFont());
+
+        return p;
+    }
+
+    public Abstractpanel toPanelAbs(DatosAbstrac X) {
+        Abstractpanel p = new Abstractpanel();
+        p.setnom(X.getNombre() + " abstract class");
+        p.paintback(X.getColor());
+        p.getTxtA().setText((X.getMetodos()));
+        p.setfont(X.getF());
+        return p;
+    }
+
+    public panelHerencia toPanelHer(DatosHerencia X) {
+        panelHerencia p = new panelHerencia();
+        p.setnom(X.getNombre() + " class");
+        p.paintback(X.getColor());
+        p.getTxt().setText(X.getMetodos());
+        p.getTxt2().setText(X.getAtributos());
+        p.setfont(X.getFon());
+        p.setPadre(X.getPadre());
+        return p;
+    }
+
+    public Interfaz toPanelInter(DatosInter X) {
+        Interfaz p = new Interfaz();
+        p.setnom(X.getNombre() + " class");
+        p.paintback(X.getC());
+        p.getTxt().setText(X.getMetodos());
+        p.setfont(X.getFont());
+        return p;
+    }
+
     public String GenerarCodeUml() {
-        pan=new ArrayList<>();
-        JPanel []pane=(JPanel[])jpn_UML.getComponents();
-        for (JPanel jPanel : pane) {
-            pan.add(jPanel);
+        pan = new ArrayList<>();
+        Component[] pane = jpn_UML.getComponents();
+        for (Component jPanel : pane) {
+            pan.add((JPanel) jPanel);
         }
         String codegen = "";
         for (JPanel jPa : pan) {
-            if(jPa instanceof Abstractpanel){
-                codegen+="from abc import ABC, abstracmethod\n\n";
+            if (jPa instanceof Abstractpanel) {
+                codegen += "from abc import ABC, abstracmethod\n\n";
             }
         }
         for (JPanel Pa : pan) {
-            if(Pa instanceof mypanel){
-                String atri=((mypanel)Pa).getTxt().getText();
-                String []atrib=atri.split("\n");
-                
-                String meth=((mypanel)Pa).getTxt2().getText();
-                String []met=meth.split("\n");
-                
-                codegen+="class "+((mypanel)Pa).getNAME()+":";
-                codegen+="\n\tdef __init__ (self";
-                
+            if (Pa instanceof mypanel) {
+                String atri = ((mypanel) Pa).getTxt().getText();
+                String[] atrib = atri.split("\n");
+
+                String meth = ((mypanel) Pa).getTxt2().getText();
+                String[] met = meth.split("\n");
+
+                codegen += "class " + ((mypanel) Pa).getNAME() + ":";
+                codegen += "\n\tdef __init__ (self";
+
                 for (String string : atrib) {
-                    codegen+=", "+string;
+                    codegen += ", " + string;
                 }
-                codegen+="):\n";
+                codegen += "):\n";
                 for (String str : atrib) {
-                    codegen+="\t\tself."+str+" ="+str+"\n";
+                    codegen += "\t\tself." + str + " =" + str + "\n";
                 }
-                codegen+="\n\n";
+                codegen += "\n\n";
                 for (String st : met) {
-                    codegen+="\tdef"+st+" (self):\n";
-                    codegen+="\t\tpass";
-                    codegen+="\n\n";
+                    codegen += "\tdef" + st + " (self):\n";
+                    codegen += "\t\tpass";
+                    codegen += "\n\n";
                 }
-                codegen+="\n";
+                codegen += "\n";
             }
-            if(Pa instanceof panelHerencia){
-                JPanel jpan=((panelHerencia)Pa).getPadre();
-                if(jpan instanceof mypanel){
-                    codegen+="class "+((panelHerencia)Pa).getNAME()+" ("+((mypanel)jpan).getNAME()+"):\n";
-                    
-                    String atribPapa=((mypanel)jpan).getTxt2().getText();
-                    String[] atribsep=atribPapa.split("\n");
-                    
-                    codegen+="\tdef__init__(self";
-                    
-                    String atribprop=((panelHerencia)Pa).getTxt2().getText();
-                    String[] atribP=atribprop.split("\n");
-                    
+            if (Pa instanceof panelHerencia) {
+                JPanel jpan = ((panelHerencia) Pa).getPadre();
+                if (jpan instanceof mypanel) {
+                    codegen += "class " + ((panelHerencia) Pa).getNAME() + " (" + ((mypanel) jpan).getNAME() + "):\n";
+
+                    String atribPapa = ((mypanel) jpan).getTxt2().getText();
+                    String[] atribsep = atribPapa.split("\n");
+
+                    codegen += "\tdef__init__(self";
+
+                    String atribprop = ((panelHerencia) Pa).getTxt2().getText();
+                    String[] atribP = atribprop.split("\n");
+
                     for (String st : atribsep) {
-                        codegen+=", "+st;
+                        codegen += ", " + st;
                     }
                     for (String str : atribP) {
-                        codegen+=", "+str;
+                        codegen += ", " + str;
                     }
-                    
-                    codegen+="):\n";
-                    
-                    codegen+="\t\tsuper().__init__(";
-                    
+
+                    codegen += "):\n";
+
+                    codegen += "\t\tsuper().__init__(";
+
                     for (int i = 0; i < atribsep.length; i++) {
-                        if(i==0){
-                            codegen+=atribsep[i];
-                        }
-                        else{
-                            codegen+=", "+atribsep[i];
+                        if (i == 0) {
+                            codegen += atribsep[i];
+                        } else {
+                            codegen += ", " + atribsep[i];
                         }
                     }
-                    
-                    codegen+="):\n";
+
+                    codegen += "):\n";
                     for (String at : atribP) {
-                        codegen+="\t\tself."+at+" = "+at+"\n";
+                        codegen += "\t\tself." + at + " = " + at + "\n";
                     }
-                    codegen+="\n\n";
-                    
-                    String meth=((panelHerencia)Pa).getTxt().getText();
-                    String[] met=meth.split("\n");
-                    
+                    codegen += "\n\n";
+
+                    String meth = ((panelHerencia) Pa).getTxt().getText();
+                    String[] met = meth.split("\n");
+
                     for (String me : met) {
-                        codegen+="\tdef "+me+" (self):\n";
-                        codegen+="\t\tpass";
-                        codegen+="\n\n";
+                        codegen += "\tdef " + me + " (self):\n";
+                        codegen += "\t\tpass";
+                        codegen += "\n\n";
                     }
-                    
-                    codegen+="\n";
-                    
-                    
-                }
-                else if(jpan instanceof Abstractpanel){
-                    codegen+="class "+((panelHerencia)Pa).getNAME()+" ("+((Abstractpanel)jpan).getNAME()+"):\n";
-                    
-                    codegen+="\tdef __init__ (self";
-                    
-                    String atrib=((panelHerencia)Pa).getTxt2().getText();
-                    String[] atribsep=atrib.split("\n");
+
+                    codegen += "\n";
+
+                } else if (jpan instanceof Abstractpanel) {
+                    codegen += "class " + ((panelHerencia) Pa).getNAME() + " (" + ((Abstractpanel) jpan).getNAME() + "):\n";
+
+                    codegen += "\tdef __init__ (self";
+
+                    String atrib = ((panelHerencia) Pa).getTxt2().getText();
+                    String[] atribsep = atrib.split("\n");
                     for (String st : atribsep) {
-                        codegen+=", "+st;
+                        codegen += ", " + st;
                     }
-                    codegen+="):\n";
-                    
+                    codegen += "):\n";
+
                     for (String at : atribsep) {
-                        codegen+="\t\tself."+at+" = "+at+"\n";
+                        codegen += "\t\tself." + at + " = " + at + "\n";
                     }
-                    codegen+="\n\n";
-                    
-                    String metP=((Abstractpanel)jpan).getTxt().getText();
-                    String[] methPa=metP.split("\n");
-                    
+                    codegen += "\n\n";
+
+                    String metP = ((Abstractpanel) jpan).getTxt().getText();
+                    String[] methPa = metP.split("\n");
+
                     for (String string : methPa) {
-                        codegen+="\tdef "+string+" (self):\n";
-                        codegen+="\t\tpass";
-                        codegen+="\n\n";
+                        codegen += "\tdef " + string + " (self):\n";
+                        codegen += "\t\tpass";
+                        codegen += "\n\n";
                     }
-                    
-                    String met=((panelHerencia)Pa).getTxt().getText();
-                    String []meth=met.split("\n");
-                    for (String string :meth ) {
-                        codegen+="\tdef "+string+" (self):\n";
-                        codegen+="\t\tpass";
-                        codegen+="\n\n";
+
+                    String met = ((panelHerencia) Pa).getTxt().getText();
+                    String[] meth = met.split("\n");
+                    for (String string : meth) {
+                        codegen += "\tdef " + string + " (self):\n";
+                        codegen += "\t\tpass";
+                        codegen += "\n\n";
                     }
-                    
-                    codegen+="\n";
-                    
-                }
-                else if(jpan instanceof Interfaz){
-                    codegen+="class "+((panelHerencia)Pa).getNAME()+" ("+((Interfaz)jpan).getNAME()+"):\n";
-                    
-                }
-                else if(jpan instanceof panelHerencia){
-                    codegen+=((panelHerencia)Pa).getNAME()+" ("+((panelHerencia)jpan).getNAME()+"):\n";
-                    
-                    codegen+="\tdef __init__ (self";
-                    
-                    String atribPad=((panelHerencia)jpan).getTxt2().getText();
-                    String []AtribPa=atribPad.split("\n");
-                    
-                    String atrinprop=((panelHerencia)Pa).getTxt2().getText();
-                    String[]atribprop=atrinprop.split("\n");
-                    
+
+                    codegen += "\n";
+
+                } else if (jpan instanceof Interfaz) {
+                    codegen += "class " + ((panelHerencia) Pa).getNAME() + " (" + ((Interfaz) jpan).getNAME() + "):\n";
+
+                } else if (jpan instanceof panelHerencia) {
+                    codegen += ((panelHerencia) Pa).getNAME() + " (" + ((panelHerencia) jpan).getNAME() + "):\n";
+
+                    codegen += "\tdef __init__ (self";
+
+                    String atribPad = ((panelHerencia) jpan).getTxt2().getText();
+                    String[] AtribPa = atribPad.split("\n");
+
+                    String atrinprop = ((panelHerencia) Pa).getTxt2().getText();
+                    String[] atribprop = atrinprop.split("\n");
+
                     for (String str : AtribPa) {
-                        codegen+=", "+str;
+                        codegen += ", " + str;
                     }
                     for (String st : atribprop) {
-                        codegen+=", "+st;
+                        codegen += ", " + st;
                     }
-                    codegen+="):\n";
-                    
-                    codegen+="\t\tsuper().__init__(";
-                    
+                    codegen += "):\n";
+
+                    codegen += "\t\tsuper().__init__(";
+
                     for (int i = 0; i < AtribPa.length; i++) {
-                        if(i==0){
-                            codegen+=AtribPa[i];
-                        }
-                        else{
-                            codegen+=", "+AtribPa[i];
+                        if (i == 0) {
+                            codegen += AtribPa[i];
+                        } else {
+                            codegen += ", " + AtribPa[i];
                         }
                     }
-                    
-                    codegen+="):\n";
-                    
+
+                    codegen += "):\n";
+
                     for (String atr : atribprop) {
-                        codegen+="\t\tself."+atr+" = "+atr+"\n";
+                        codegen += "\t\tself." + atr + " = " + atr + "\n";
                     }
-                    codegen="\n\n";
-                    
-                    String meth=((panelHerencia)Pa).getTxt().getText();
-                    String[] met=meth.split("\n");
-                    
+                    codegen = "\n\n";
+
+                    String meth = ((panelHerencia) Pa).getTxt().getText();
+                    String[] met = meth.split("\n");
+
                     for (String st : met) {
-                        codegen+="\tdef "+st+" (self):\n";
-                        codegen+="\t\tpass";
-                        codegen+="\n\n";
+                        codegen += "\tdef " + st + " (self):\n";
+                        codegen += "\t\tpass";
+                        codegen += "\n\n";
                     }
-                    
-                    codegen+="\n";
-                    
-                    
+
+                    codegen += "\n";
+
                 }
-                codegen+="\n\n";
+                codegen += "\n\n";
             }
-            if(Pa instanceof Abstractpanel){
-                codegen+="class "+((Abstractpanel)Pa).getNAME();
-                String meth=((Abstractpanel)Pa).getTxtA().getText();
-                String []metabs=meth.split("\n");
+            if (Pa instanceof Abstractpanel) {
+                codegen += "class " + ((Abstractpanel) Pa).getNAME();
+                String meth = ((Abstractpanel) Pa).getTxtA().getText();
+                String[] metabs = meth.split("\n");
                 for (String me : metabs) {
-                    codegen+="\t@abstractmethod\n";
-                    codegen+="\tdef "+me+" (self):\n";
-                    codegen+="\t\tpass";
-                    codegen+="\n\n";
+                    codegen += "\t@abstractmethod\n";
+                    codegen += "\tdef " + me + " (self):\n";
+                    codegen += "\t\tpass";
+                    codegen += "\n\n";
                 }
-                codegen+="\n";
+                codegen += "\n";
             }
-            if(Pa instanceof Interfaz){
-                codegen+="class "+((Interfaz)Pa).getNAME();
-                
-                String meth=((Interfaz)Pa).getTxt().getText();
-                String[]metab=meth.split("\n");
+            if (Pa instanceof Interfaz) {
+                codegen += "class " + ((Interfaz) Pa).getNAME();
+
+                String meth = ((Interfaz) Pa).getTxt().getText();
+                String[] metab = meth.split("\n");
                 for (String me : metab) {
-                    codegen+="\t@abstractmethod\n";
-                    codegen+="\tdef "+me+" (self):\n";
-                    codegen+="\t\tpass";
-                    codegen+="\n\n";
+                    codegen += "\t@abstractmethod\n";
+                    codegen += "\tdef " + me + " (self):\n";
+                    codegen += "\t\tpass";
+                    codegen += "\n\n";
                 }
-                codegen+="\n";
+                codegen += "\n";
             }
         }
         return codegen;
+    }
+
+    //Metodo para Imprimir Paneles
+    //Metodo para Imprimir Paneles
+    private void PrintRecord(JPanel panel) {
+
+        PrinterJob pj = PrinterJob.getPrinterJob();
+
+        //Ponerle nombre al PrinterJob
+        pj.setJobName("Print Record");
+
+        //Hacer el Set Printable
+        pj.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                //Chequea si el size es muy grande
+                if (pageIndex > 0) {
+
+                    return Printable.NO_SUCH_PAGE;
+                }
+
+                //Hacer las Graficas 2D
+                Graphics2D graphics2D = (Graphics2D) graphics;
+
+                //Hacer la "traduccion" de las graficas
+                graphics2D.translate(pageFormat.getImageableX() * 2, pageFormat.getImageableY() * 2);
+
+                //Esto es una escala de pagina. No obstante, la default es 0.3, no 0.5.
+                graphics2D.scale(0.3, 0.3);
+
+                //Pintamos el panel como graficas
+                panel.paint(graphics2D);
+
+                //Retornar si la pagina existe
+                return Printable.PAGE_EXISTS;
+            }
+
+        });
+        //Guardar PrinterDialog como booleano
+        boolean Resultadoreturn = pj.printDialog();
+
+        //Revisar si el dialogo se muestra
+        if (Resultadoreturn) {
+
+            try {
+                //Llamamos al metodo para imprimir
+                pj.print();
+
+            } catch (PrinterException printerexc) {
+                JOptionPane.showMessageDialog(null, printerexc.getMessage());
+            }
+
+        }
+
+    }
+
+    public DatosSimp GenDatosSimp(mypanel X) {
+        DatosSimp temp = new DatosSimp(X.getWidth(), X.getHeight(), X.getTxt2().getText(),
+                X.getTxt().getText(), X.getNAME(), X.getBackground(), X.getTxt().getFont());
+        return temp;
+    }
+
+    public DatosAbstrac GenDatosAbs(Abstractpanel X) {
+        DatosAbstrac temp = new DatosAbstrac(X.getTxtA().getText(), X.getNAME(), X.getBackground(), X.getTxtA().getFont());
+        return temp;
+    }
+
+    public DatosHerencia GenDatosHeren(panelHerencia X) {
+        String Name = "";
+        for (JPanel jP : pan) {
+            if (jP instanceof mypanel) {
+                Name = ((mypanel) jP).getNAME();
+            } else if (jP instanceof Abstractpanel) {
+                Name = ((Abstractpanel) jP).getNAME();
+            } else if (jP instanceof Interfaz) {
+                Name = ((Interfaz) jP).getNAME();
+            } else if (jP instanceof panelHerencia) {
+                Name = ((panelHerencia) jP).getNAME();
+            }
+        }
+        DatosHerencia temp = new DatosHerencia(X.getTxt2().getText(), X.getTxt().getText(), X.getNAME() + " class", X.getPadre(), X.getBackground(), X.getFont());
+        return temp;
+    }
+
+    public DatosInter GenDatosInter(Interfaz X) {
+        DatosInter temp = new DatosInter(X.getTxt().getText(), X.getNAME() + " Interface", X.getBackground(), X.getTxt().getFont());
+        return temp;
     }
 
     /**
@@ -3986,9 +4314,10 @@ JFileChooser fileChooser = new JFileChooser();
     int cont = 0;
     public static ArrayList<JPanel> pan = new ArrayList<>();
     public static ArrayList<FormaGeneral> figs = new ArrayList<>();
-    public static JPopupMenu pop=new JPopupMenu();
-     JMenuItem op2=new JMenuItem("Agregar al generador");
-    
+    public static ArrayList<Object> Desceri = new ArrayList<>();
+    public static JPopupMenu pop = new JPopupMenu();
+    JMenuItem op2 = new JMenuItem("Agregar al generador");
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Bt_setfont;
     private javax.swing.JDialog JD_Codigo;
@@ -4041,6 +4370,7 @@ JFileChooser fileChooser = new JFileChooser();
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -4048,6 +4378,7 @@ JFileChooser fileChooser = new JFileChooser();
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;

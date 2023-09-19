@@ -37,7 +37,7 @@ public class Paralelogramo extends FormaGeneral implements MouseListener, MouseM
                 JPanel xf = (JPanel) figselec.getParent();
                 xf.remove(figselec);
                 xf.repaint();
-
+                
 
 
             }

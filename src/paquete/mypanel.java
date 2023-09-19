@@ -75,9 +75,7 @@ public class mypanel extends JPanel implements MouseListener, MouseMotionListene
                 JPanel xf = (JPanel) figselec.getParent();
                 xf.remove(figselec);
                 xf.repaint();
-
-
-
+                Principal.pan.remove(figselec);
             }
         });
         men.add(it1);
@@ -297,7 +295,7 @@ public class mypanel extends JPanel implements MouseListener, MouseMotionListene
     }
 
     public void setNAME(String NAME) {
-        nom.setText(NAME);
+        nom.setText(NAME+" class");
         this.NAME = NAME;
         
     }

@@ -42,9 +42,7 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
     private static Interfaz figselec;
     private boolean selec=false;
     private JTextArea txt=new JTextArea();
-    private JTextArea txt2=new JTextArea();
     private JScrollPane sp1=new JScrollPane(txt);
-    private JScrollPane sp2=new JScrollPane(txt2);
     private JLabel nom=new JLabel("class");
     private JLabel nom2=new JLabel("            Metodos            ");
     private JPanel p1= new JPanel();
@@ -56,8 +54,6 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
     private JPanel padre= new JPanel();
     
     public Interfaz(){
-        
-        
         it1.addActionListener(this);
         it2.addActionListener(new ActionListener() {
             @Override
@@ -66,14 +62,13 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
                 JPanel xf = (JPanel) figselec.getParent();
                 xf.remove(figselec);
                 xf.repaint();
-
+                Principal.pan.remove(figselec);
 
 
             }
         });
         men.add(it1);
         men.add(it2);
-        
         this.addMouseListener((MouseListener)this);
         this.addMouseMotionListener((MouseMotionListener)this);
         this.setBackground(Color.red);
@@ -107,17 +102,11 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
         p1.setBackground(Color.blue);
         p2.setBackground(Color.blue);
         txt.setSize(170, 50);
-        txt2.setSize(170, 50);
         txt.setBounds(0, 0, 170, 30);
-        txt2.setBounds(0, 0, 170, 30);
         sp1.setSize(150, 20);
-        sp2.setSize(150, 50);
         sp1.setBounds(5, 0, 150, 20);
-        sp2.setBounds(0, 0, 150, 20);
         sp1.setBackground(Color.blue);
-        sp2.setBackground(Color.blue);
         txt.setText(sad);
-        txt2.setText(sad);
         p1.add(nom);
         
     }
@@ -137,13 +126,6 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
         this.txt = txt;
     }
 
-    public JTextArea getTxt2() {
-        return txt2;
-    }
-
-    public void setTxt2(JTextArea txt2) {
-        this.txt2 = txt2;
-    }
 
     public JScrollPane getSp1() {
         return sp1;
@@ -153,13 +135,7 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
         this.sp1 = sp1;
     }
 
-    public JScrollPane getSp2() {
-        return sp2;
-    }
-
-    public void setSp2(JScrollPane sp2) {
-        this.sp2 = sp2;
-    }
+    
 
     public JLabel getNom() {
         return nom;
@@ -255,11 +231,15 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
     public void mouseClicked(java.awt.event.MouseEvent evt) {
         figselec=Interfaz.this;
         selec=!selec;
+        if(evt.isMetaDown()){
+            men.show(this, evt.getX(), evt.getY());
+        }
+        else{
         figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         if(!selec){
             figselec.setBorder(null);
         }
-        
+                }
     }
     public String getNAME(){
         return NAME;
@@ -329,11 +309,9 @@ public class Interfaz extends JPanel implements MouseListener, MouseMotionListen
     public void setfont(Font F){
         if(selec){
             txt.setFont(F);
-            txt2.setFont(F);
         }
     }
     public void settexto(Color c){
         txt.setForeground(c);
-        txt2.setForeground(c);
     }
 }

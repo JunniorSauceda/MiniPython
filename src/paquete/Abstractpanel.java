@@ -74,7 +74,7 @@ public class Abstractpanel extends JPanel implements MouseListener, MouseMotionL
                 JPanel xf = (JPanel) figselec.getParent();
                 xf.remove(figselec);
                 xf.repaint();
-
+                Principal.pan.remove(figselec);
 
 
             }
