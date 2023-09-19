@@ -145,6 +145,8 @@ public class Principal extends javax.swing.JFrame {
         lb_proceso = new javax.swing.JLabel();
         jPanel53 = new javax.swing.JPanel();
         jlb_desicion1 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jPanel41 = new javax.swing.JPanel();
         jPanel42 = new javax.swing.JPanel();
@@ -163,7 +165,6 @@ public class Principal extends javax.swing.JFrame {
         cb_tamaño1 = new javax.swing.JComboBox<>();
         Bt_setfont = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpn_diagrama = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -862,7 +863,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel32.setLayout(jPanel32Layout);
         jPanel32Layout.setHorizontalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_desicion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jlb_desicion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -922,7 +923,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel34.setLayout(jPanel34Layout);
         jPanel34Layout.setHorizontalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_datos, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+            .addComponent(jlb_datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -982,7 +983,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel39.setLayout(jPanel39Layout);
         jPanel39Layout.setHorizontalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lb_proceso, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+            .addComponent(lb_proceso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1012,32 +1013,51 @@ public class Principal extends javax.swing.JFrame {
         jPanel53.setLayout(jPanel53Layout);
         jPanel53Layout.setHorizontalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_desicion1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+            .addComponent(jlb_desicion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel53Layout.setVerticalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jlb_desicion1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
         );
 
+        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("jLabel12");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
         jPanel31.setLayout(jPanel31Layout);
         jPanel31Layout.setHorizontalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel32, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1049,7 +1069,7 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addGap(16, 16, 16))
         );
 
         jPanel15.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 610));
@@ -1332,25 +1352,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Agregar a la lista");
-        jButton1.setBorder(null);
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton1.setFocusable(false);
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
         jPanel40Layout.setHorizontalGroup(
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel40Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
+                .addContainerGap(142, Short.MAX_VALUE)
                 .addComponent(Bt_setfont, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_tamaño1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1418,9 +1425,7 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel10))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Bt_setfont, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(Bt_setfont, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -1467,9 +1472,14 @@ public class Principal extends javax.swing.JFrame {
         jMenu3.add(jMenu5);
 
         jMenuItem1.setText("Guardar Como Binario");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem1);
 
-        jMenuItem2.setText("Imprimir UML");
+        jMenuItem2.setText("Imprimir Diagrama");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -1477,10 +1487,15 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu3.add(jMenuItem2);
 
-        jMenuItem9.setText("Abrir UML");
+        jMenuItem9.setText("Abrir Diagrama");
         jMenuItem9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItem9MouseClicked(evt);
+            }
+        });
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
             }
         });
         jMenu3.add(jMenuItem9);
@@ -2904,6 +2919,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Rombo r = new Rombo();
         r.setVisible(true);
+        figs.add(r);
         jpn_diagrama.add(r);
 
         jpn_diagrama.revalidate();
@@ -2918,6 +2934,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         circulo c = new circulo();
         c.setVisible(true);
+        figs.add(c);
         jpn_diagrama.add(c);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
@@ -2931,6 +2948,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Paralelogramo p = new Paralelogramo();
         p.setVisible(true);
+        figs.add(p);
         jpn_diagrama.add(p);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
@@ -3326,6 +3344,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         Proceso p = new Proceso();
         p.setVisible(true);
+        figs.add(p);
         jpn_diagrama.add(p);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
@@ -3501,7 +3520,22 @@ public class Principal extends javax.swing.JFrame {
     }
     private void bt_cambiarfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cambiarfontMouseClicked
         // TODO add your handling code here:
-        Font f = new Font(cb_font.getSelectedItem().toString(), cb_style.getSelectedIndex(), Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+        Font f=null;
+        if(cb_Style.getSelectedIndex()==0){
+            if (cb_style.getSelectedIndex()==0){
+                f = new Font (cb_font.getSelectedItem().toString(), Font.PLAIN, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));   
+            }
+            else if (cb_style.getSelectedIndex()==1){
+                f = new Font(cb_font.getSelectedItem().toString(), Font.BOLD, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+            }
+            else if (cb_style.getSelectedIndex()==2){
+                f = new Font(cb_font.getSelectedItem().toString(), Font.ITALIC, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+            }
+            else if (cb_style.getSelectedIndex()==3){
+                f = new Font(cb_font.getSelectedItem().toString(), Font.BOLD + Font.ITALIC, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+            }
+        }
+         
         for (Component c : jpn_UML.getComponents()) {
             if (c instanceof mypanel) {
                 ((mypanel) c).setfont(f);
@@ -3520,6 +3554,7 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         InicioFin I = new InicioFin();
         I.setVisible(true);
+        figs.add(I);
         jpn_diagrama.add(I);
         jpn_diagrama.revalidate();
         jpn_diagrama.repaint();
@@ -3603,7 +3638,22 @@ public class Principal extends javax.swing.JFrame {
 
     private void Bt_setfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bt_setfontMouseClicked
         // TODO add your handling code here:
-        Font f = new Font(cb_font2.getSelectedItem().toString(), cb_Style.getSelectedIndex(), Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
+        Font f=null;
+        if(cb_Style.getSelectedIndex()==0){
+            if (cb_Style.getSelectedIndex()==0){
+                f = new Font (cb_font2.getSelectedItem().toString(), Font.PLAIN, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));   
+            }
+            else if (cb_Style.getSelectedIndex()==1){
+                f = new Font(cb_font2.getSelectedItem().toString(), Font.BOLD, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
+            }
+            else if (cb_Style.getSelectedIndex()==2){
+                f = new Font(cb_font2.getSelectedItem().toString(), Font.ITALIC, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
+            }
+            else if (cb_Style.getSelectedIndex()==3){
+                f = new Font(cb_font2.getSelectedItem().toString(), Font.BOLD + Font.ITALIC, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
+            }
+        }
+        
         for (Component c : jpn_diagrama.getComponents()) {
             if (c instanceof Rombo) {
                 ((Rombo) c).setfont(f);
@@ -3645,73 +3695,6 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         saveAsJPG2(jpn_diagrama);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
-        int con = 0;
-        for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-            Component c = jpn_diagrama.getComponent(i);
-            if (c instanceof Rombo) {
-                if (((Rombo) c).isSelec()) {
-                    con++;
-                }
-            } else if (c instanceof Proceso) {
-                if (((Proceso) c).isSelec()) {
-                    con++;
-                }
-            } else if (c instanceof circulo) {
-                if (((circulo) c).isSelec()) {
-                    con++;
-                }
-            } else if (c instanceof Paralelogramo) {
-                if (((Paralelogramo) c).isSelec()) {
-                    con++;
-                }
-            } else if (c instanceof InicioFin) {
-                if (((InicioFin) c).isSelec()) {
-                    con++;
-                }
-            }
-
-        }
-        if (con > 1 || con < 1) {
-            if (con > 1) {
-                JOptionPane.showMessageDialog(JD_DdF, "Por favor solo seleccione 1 imagen");
-            } else {
-                JOptionPane.showMessageDialog(JD_DdF, "Por favor seleccione 1 imagen");
-            }
-        } else {
-            for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
-                Component c = jpn_diagrama.getComponent(i);
-                if (c instanceof Rombo) {
-                    if (((Rombo) c).isSelec()) {
-                        figs.add(((Rombo) c));
-                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                    }
-                } else if (c instanceof Proceso) {
-                    if (((Proceso) c).isSelec()) {
-                        figs.add(((Proceso) c));
-                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                    }
-                } else if (c instanceof circulo) {
-                    if (((circulo) c).isSelec()) {
-                        figs.add(((circulo) c));
-                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                    }
-                } else if (c instanceof Paralelogramo) {
-                    if (((Paralelogramo) c).isSelec()) {
-                        figs.add(((Paralelogramo) c));
-                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                    }
-                } else if (c instanceof InicioFin) {
-                    if (((InicioFin) c).isSelec()) {
-                        figs.add(((InicioFin) c));
-                        JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
-                    }
-                }
-            }
-        }
-    }//GEN-LAST:event_jButton1MouseClicked
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
 
@@ -3772,40 +3755,7 @@ public class Principal extends javax.swing.JFrame {
                         bw.writeObject(dat);
                         bw.flush();
                     }
-//                    else if (figura instanceof Rombo) {
-//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
-//                        ClasseFigura temp = (Rombo) figura;
-//                        DatosClasse dat = convertirDatosSimp(temp);
-//                        bw.writeObject(dat);
-//                        bw.flush();
-//                    }
-//                    else if (figura instanceof Paralelogramo) {
-//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
-//                        ClasseFigura temp = (Paralelogramo) figura;
-//                        DatosClasse dat = convertirDatosSimp(temp);
-//                        bw.writeObject(dat);
-//                        bw.flush();
-//                    }
-//                    else if (figura instanceof circulo) {
-//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
-//                        ClasseFigura temp = (circulo) figura;
-//                        DatosClasse dat = convertirDatosSimp(temp);
-//                        bw.writeObject(dat);
-//                        bw.flush();
-//                    }else if (figura instanceof Proceso) {
-//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
-//                        ClasseFigura temp = (Proceso) figura;
-//                        DatosClasse dat = convertirDatosSimp(temp);
-//                        bw.writeObject(dat);
-//                        bw.flush();
-//                    }
-//                    else if (figura instanceof InicioFin) {
-//                        JOptionPane.showMessageDialog(this, "Serializando Simplefigura....");
-//                        ClasseFigura temp = (InicioFin) figura;
-//                        DatosClasse dat = convertirDatosSimp(temp);
-//                        bw.writeObject(dat);
-//                        bw.flush();
-//                    }
+
 
                 }
 
@@ -3825,6 +3775,8 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
+    
+    
     private void jMenuItem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9MouseClicked
@@ -3944,6 +3896,220 @@ public class Principal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser();
+
+        jfc.setCurrentDirectory(new File("C:\\Users\\Junnior Sauceda\\Desktop\\CosasProyecto"));
+
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter(
+                "Archivos Jr",
+                "Jr");
+        jfc.setFileFilter(filtro);
+        int seleccion = jfc.showSaveDialog(this);
+
+        FileOutputStream fw = null;
+        ObjectOutputStream bw = null;
+
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+
+            try {
+                File file = null;
+                if (jfc.getFileFilter().getDescription().equals("Archivos Jr")) {
+                    file = new File(jfc.getSelectedFile().getPath() + ".Jr");
+                } else {
+                    file = jfc.getSelectedFile();
+                }
+                fw = new FileOutputStream(file);
+                bw = new ObjectOutputStream(fw);
+
+                for (Object figura : figs) {
+                    
+                    if (figura instanceof Rombo) {
+                        
+                        Rombo temp = (Rombo) figura;
+                        DatosRombo dat = GenDatosRombo(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    } 
+                    else if (figura instanceof circulo) {
+                        
+                        circulo temp = (circulo) figura;
+                        DatosCiclo dat = GenDatosCiclo(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    } 
+                    else if (figura instanceof Paralelogramo) {
+                        
+                        Paralelogramo temp = (Paralelogramo) figura;
+                        DatosDat dat = GenDatosDat(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    }
+                    else if (figura instanceof Proceso) {
+                        
+                        Proceso temp = (Proceso) figura;
+                        DatosProcess dat = GenDatosProce(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    }
+                    else if (figura instanceof InicioFin) {
+                        
+                        InicioFin temp = (InicioFin) figura;
+                        DatosInicio dat = GenDatosInic(temp);
+                        bw.writeObject(dat);
+                        bw.flush();
+                    }
+                    
+
+
+                }
+
+                JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Error");
+                e.printStackTrace();
+            }
+            try {
+                bw.close();
+                fw.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        Desceri.clear();
+        File fichero = null;
+        FileInputStream entrada = null;
+        ObjectInputStream objeto = null;
+        try {
+            JFileChooser jfc = new JFileChooser();
+            jfc.setCurrentDirectory(new File("C:\\Users\\Junnior Sauceda\\Desktop\\CosasProyecto"));
+            FileNameExtensionFilter filtro
+                    = new FileNameExtensionFilter(
+                            "Archivos Jr", "Jr");
+            jfc.setFileFilter(filtro);
+
+            int seleccion = jfc.showOpenDialog(JD_DdF);
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                int confirm = JOptionPane.showConfirmDialog(this, "Desea copiar los datos?");
+                if (confirm != JOptionPane.YES_OPTION) {
+                    jpn_diagrama.removeAll();
+                }
+                fichero = jfc.getSelectedFile();
+                entrada
+                        = new FileInputStream(fichero);
+                objeto
+                        = new ObjectInputStream(entrada);
+
+                try {
+
+                    while (true) {
+                        Object temp = objeto.readObject();
+                        if (temp instanceof DatosRombo) {
+                            DatosRombo S = (DatosRombo) temp;
+                            Rombo p = toRombo(S);
+                            Desceri.add(p);
+                            jpn_diagrama.add(p);
+                        }
+                        
+                        else if (temp instanceof DatosCiclo) {
+                            DatosCiclo S = (DatosCiclo) temp;
+                            circulo p = toCiclo(S);
+                            Desceri.add(p);
+                            jpn_diagrama.add(p);
+                        } 
+                        else if (temp instanceof DatosDat) {
+                            DatosDat S = (DatosDat) temp;
+                            Paralelogramo p = toDatos(S);
+                            Desceri.add(p);
+                            jpn_diagrama.add(p);
+                        }
+                        else if (temp instanceof DatosProcess) {
+                            DatosProcess S = (DatosProcess) temp;
+                            Proceso p = toProceso(S);
+                            Desceri.add(p);
+                            jpn_diagrama.add(p);
+                        }
+                        else if (temp instanceof DatosInicio) {
+                            DatosInicio S = (DatosInicio) temp;
+                            InicioFin p = toInicio(S);
+                            Desceri.add(p);
+                            jpn_diagrama.add(p);
+                        }
+
+                    }
+                } catch (Exception e) {
+
+                }
+                for (Object obj : Desceri) {
+                    Object Ob = obj;
+                    if (Ob instanceof Rombo) {
+                        Rombo P = ((Rombo) Ob);
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_diagrama.add(P);
+                        jpn_diagrama.revalidate();
+                        jpn_diagrama.repaint();
+                    }
+                    else if (Ob instanceof circulo) {
+                        circulo P = ((circulo) Ob);
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_diagrama.add(P);
+                        jpn_diagrama.revalidate();
+                        jpn_diagrama.repaint();
+                    }
+                    else if (Ob instanceof Paralelogramo) {
+                        Paralelogramo P = ((Paralelogramo) Ob);
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_diagrama.add(P);
+                        jpn_diagrama.revalidate();
+                        jpn_diagrama.repaint();
+                    }
+                    else if (Ob instanceof Proceso) {
+                        Proceso P = ((Proceso) Ob);
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_diagrama.add(P);
+                        jpn_diagrama.revalidate();
+                        jpn_diagrama.repaint();
+                    }
+                    else if (Ob instanceof InicioFin) {
+                        InicioFin P = ((InicioFin) Ob);
+                        P.revalidate();
+                        P.repaint();
+                        P.setVisible(true);
+                        jpn_diagrama.add(P);
+                        jpn_diagrama.revalidate();
+                        jpn_diagrama.repaint();
+                    }
+                }
+
+            } //fin if
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            objeto.close();
+            entrada.close();
+        } catch (IOException ex) {
+        }
+
+
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
     public mypanel toPanelSimp(DatosSimp X) {
         mypanel p = new mypanel();
         p.setnom(X.getNombre());
@@ -3972,6 +4138,42 @@ public class Principal extends javax.swing.JFrame {
         p.getTxt2().setText(X.getAtributos());
         p.setfont(X.getFon());
         p.setPadre(X.getPadre());
+        return p;
+    }
+    
+    public Rombo toRombo(DatosRombo X) {
+        Rombo p = new Rombo();
+        p.paintback(X.getColor());
+        p.getText().setText(X.getMetodo());
+        p.setfont(X.getFont());
+        return p;
+    }
+    public circulo toCiclo(DatosCiclo X) {
+        circulo p = new circulo();
+        p.paintback(X.getColor());
+        p.getArea().setText(X.getMetodo());
+        p.setfont(X.getFont());
+        return p;
+    }
+    public Proceso toProceso(DatosProcess X) {
+        Proceso p = new Proceso();
+        p.paintback(X.getColor());
+        p.getTxt().setText(X.getMetodo());
+        p.setfont(X.getFont());
+        return p;
+    }
+    public InicioFin toInicio(DatosInicio X) {
+        InicioFin p = new InicioFin();
+        p.paintback(X.getColor());
+        p.getArea().setText(X.getMetodo());
+        p.setfont(X.getFont());
+        return p;
+    }
+    public Paralelogramo toDatos(DatosDat X) {
+        Paralelogramo p = new Paralelogramo();
+        p.paintback(X.getColor());
+        p.getArea().setText(X.getMetodo());
+        p.setfont(X.getFont());
         return p;
     }
 
@@ -4275,6 +4477,26 @@ public class Principal extends javax.swing.JFrame {
         DatosInter temp = new DatosInter(X.getTxt().getText(), X.getNAME() + " Interface", X.getBackground(), X.getTxt().getFont());
         return temp;
     }
+    public DatosRombo GenDatosRombo(Rombo X){
+        DatosRombo temp= new DatosRombo(X.getText().getText(), X.getColor(), X.getText().getFont());
+        return temp;
+    }
+    public DatosCiclo GenDatosCiclo(circulo X){
+        DatosCiclo temp= new DatosCiclo(X.getArea().getText(), X.getColor(), X.getArea().getFont());
+        return temp;
+    }
+    public DatosDat GenDatosDat(Paralelogramo X){
+        DatosDat temp= new DatosDat(X.getArea().getText(), X.getColor(), X.getArea().getFont());
+        return temp;
+    }
+    public DatosProcess GenDatosProce(Proceso X){
+        DatosProcess temp= new DatosProcess(X.getTxt().getText(), X.getColor(), X.getTxt().getFont());
+        return temp;
+    }
+    public DatosInicio GenDatosInic(InicioFin X){
+        DatosInicio temp= new DatosInicio(X.getArea().getText(), X.getColor(), X.getArea().getFont());
+        return temp;
+    }
 
     /**
      * @param args the command line arguments
@@ -4335,10 +4557,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cb_style;
     private javax.swing.JComboBox<String> cb_tamaño;
     private javax.swing.JComboBox<String> cb_tamaño1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -4420,6 +4642,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel47;
     private javax.swing.JPanel jPanel48;
     private javax.swing.JPanel jPanel49;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel50;
     private javax.swing.JPanel jPanel51;
     private javax.swing.JPanel jPanel52;

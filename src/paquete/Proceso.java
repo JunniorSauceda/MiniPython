@@ -53,6 +53,7 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
     private JSeparator s2 = new JSeparator();
     private String sad = "";
     private String NAME;
+    private Color color=Color.blue;
     private Font Fon = txt.getFont();
     private boolean borrado=false;
     
@@ -80,7 +81,7 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
         this.setBackground(Color.red);
         this.setBounds(0, 0, 100, 150);
         this.setVisible(true);
-        this.setBackground(Color.blue);
+        this.setBackground(color);
         this.setLocation(0, 0);
         this.setSize(150, 100);
         this.setBounds(0, 0, 150, 80);
@@ -102,6 +103,14 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
         
     }
 
+    public Font getFon() {
+        return Fon;
+    }
+
+    public void setFon(Font Fon) {
+        this.Fon = Fon;
+    }
+
     public void setfont(Font F){
         if(selec){
             txt.setFont(F);
@@ -118,6 +127,14 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
 
     public Font getF() {
         return Fon;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     
@@ -193,6 +210,7 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
 
     public void paintback(Color c) {
         if(selec){
+            color=c;
             this.setBackground(c);
         sp1.setBackground(c);
         }

@@ -62,6 +62,23 @@ public class InicioFin extends FormaGeneral implements MouseListener, MouseMotio
         area.setLayout(getLayout());
         this.add(sp1);
     }
+
+    public JTextArea getArea() {
+        return area;
+    }
+
+    public void setArea(JTextArea area) {
+        this.area = area;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

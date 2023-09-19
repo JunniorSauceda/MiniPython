@@ -101,6 +101,14 @@ public class Rombo extends FormaGeneral implements MouseListener, MouseMotionLis
     public void setMen(JPopupMenu men) {
         this.men = men;
     }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
     
     @Override
     protected void paintComponent(Graphics g) {

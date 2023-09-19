@@ -80,6 +80,30 @@ public class Paralelogramo extends FormaGeneral implements MouseListener, MouseM
         return men;
     }
 
+    public JTextArea getTxt() {
+        return txt;
+    }
+
+    public void setTxt(JTextArea txt) {
+        this.txt = txt;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public JTextArea getArea() {
+        return area;
+    }
+
+    public void setArea(JTextArea area) {
+        this.area = area;
+    }
+
     public void setMen(JPopupMenu men) {
         this.men = men;
     }

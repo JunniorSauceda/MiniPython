@@ -82,6 +82,23 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
         p.revalidate();
         p.repaint();
     }
+
+    public JTextArea getArea() {
+        return area;
+    }
+
+    public void setArea(JTextArea area) {
+        this.area = area;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+    
     @Override
     public void mousePressed(java.awt.event.MouseEvent evt) {
         inicial=SwingUtilities.convertPoint(this, evt.getPoint(), this.getParent());
