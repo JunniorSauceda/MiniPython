@@ -38,7 +38,7 @@ import javax.swing.tree.DefaultTreeCellEditor;
  *
  * @author Junnior Sauceda
  */
-public class Proceso extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
+public class Proceso extends FormaGeneral implements MouseListener, MouseMotionListener, ActionListener {
 
     private JPopupMenu men = new JPopupMenu();
     private JMenuItem it2=new JMenuItem("Eliminar");
@@ -83,17 +83,21 @@ public class Proceso extends JPanel implements MouseListener, MouseMotionListene
         this.setBackground(Color.blue);
         this.setLocation(0, 0);
         this.setSize(150, 100);
-        this.setBounds(0, 0, 150, 40);
+        this.setBounds(0, 0, 150, 80);
         this.add(sp1);
-        txt.setSize(100, 50);
-        txt.setBounds(0, 40, 130, 50);
-        txt.setSize(130, 50);
-        sp1.setSize(100, 50);
-        sp1.setBounds(0, 40, 130, 50);
-        sp1.setSize(130, 50);
+        this.add(indice);
+        setLayout(null);
+        indice.setSize(20, 30);
+        indice.setBounds(60, 55, 30, 20);
+        txt.setSize(100, 20);
+        txt.setBounds(0, 20, 130, 20);
+        txt.setSize(130, 30);
+        sp1.setSize(100, 25);
+        sp1.setBounds(10, 20, 130, 25);
+        sp1.setSize(130, 15);
         sp1.setBackground(Color.blue);
-        txt.setSize(130, 50);
-        sp1.setSize(130, 50);
+        txt.setSize(130, 30);
+        sp1.setSize(130, 25);
 
         
     }

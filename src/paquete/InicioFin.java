@@ -16,22 +16,23 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.RoundRectangle2D;
 
 
 
-public class circulo extends FormaGeneral implements MouseListener, MouseMotionListener, ActionListener{
+public class InicioFin extends FormaGeneral implements MouseListener, MouseMotionListener, ActionListener{
      private JPopupMenu men = new JPopupMenu();
     private JMenuItem it2=new JMenuItem("Eliminar");
     
     private Point inicial;
     private boolean selec;
-    private circulo figselec;
+    private InicioFin figselec;
     private JTextArea area=new JTextArea();
     private JScrollPane sp1=new JScrollPane(area);
     private String Name;
     private Color color=Color.red;
     
-    public circulo(){
+    public InicioFin(){
         it2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -48,11 +49,11 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
         setLayout(null);
         this.addMouseListener((MouseListener)this);
         this.addMouseMotionListener((MouseMotionListener)this);
-        this.setSize(150, 100);
-        this.setPreferredSize(new Dimension(150, 100));
+        this.setSize(150, 90);
+        this.setPreferredSize(new Dimension(150, 90));
         this.add(indice);
         indice.setSize(20, 25);
-        indice.setBounds(75, 75, 30, 20);
+        indice.setBounds(65, 65, 30, 20);
         area.setLineWrap(true);
         sp1.setPreferredSize(new Dimension(80, 25));
         sp1.setBounds(22, 35, 100, 25);
@@ -64,17 +65,18 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g.create();
         
         int width = getWidth();
         int height = getHeight();
         
-        Ellipse2D circle = new Ellipse2D.Double(0, 0, width, height);
-        g2d.setClip(circle);
+        Graphics2D g2d = (Graphics2D) g;
         
-        g2d.setColor(color); // Cambia el color de fondo a tu elección
-        g2d.fill(circle);
-        g2d.dispose();
+        // Crear una forma de cápsula horizontal
+        Shape capsuleShape = new RoundRectangle2D.Double(0, height / 4, width, height / 2, height / 2, height / 2);
+        
+        // Rellenar la forma con un color
+        g2d.setColor(color); // Cambia el color como desees
+        g2d.fill(capsuleShape);
     }
     public void actionPerformed(ActionEvent e) {
         JPanel p=(JPanel)getParent();
@@ -124,7 +126,7 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
     }
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
-        figselec=circulo.this;
+        figselec=InicioFin.this;
         selec=!selec;
         figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
         if(!selec){

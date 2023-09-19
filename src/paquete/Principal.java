@@ -185,6 +185,7 @@ public class Principal extends javax.swing.JFrame {
         cb_tamaño1 = new javax.swing.JComboBox<>();
         Bt_setfont = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jpn_diagrama = new javax.swing.JPanel();
         jMenuBar2 = new javax.swing.JMenuBar();
@@ -426,10 +427,10 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(jPanel35, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel36, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(156, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
-        jPanel6.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 630));
+        jPanel6.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 190, 610));
 
         jPanel7.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -753,7 +754,7 @@ public class Principal extends javax.swing.JFrame {
                                     .addComponent(jPanel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jPanel29, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(bt_cambiarfont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(bt_cambiarfont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(cb_font, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(cb_style, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -782,7 +783,7 @@ public class Principal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jpn_UML);
 
-        jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 940, 630));
+        jPanel6.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 940, 610));
 
         jMenu1.setText("File");
 
@@ -1331,12 +1332,25 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jButton1.setText("Agregar a la lista");
+        jButton1.setBorder(null);
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.setFocusable(false);
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel40Layout = new javax.swing.GroupLayout(jPanel40);
         jPanel40.setLayout(jPanel40Layout);
         jPanel40Layout.setHorizontalGroup(
             jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel40Layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addComponent(Bt_setfont, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cb_tamaño1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1404,7 +1418,9 @@ public class Principal extends javax.swing.JFrame {
                         .addComponent(jLabel10))
                     .addGroup(jPanel40Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Bt_setfont, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel40Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Bt_setfont, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -2919,8 +2935,50 @@ public class Principal extends javax.swing.JFrame {
 
     private void lb_GenerarFlujojPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_GenerarFlujojPanel11MouseClicked
         // TODO add your handling code here:
+        Arbol tree=genarbolflujo();
+        String res = tree.recorrer(tree.getRaiz());
+        System.out.println(res);
+        
+        
     }//GEN-LAST:event_lb_GenerarFlujojPanel11MouseClicked
+    public Arbol genarbolflujo (){
+        
+        
+        Arbol flujograma = new Arbol();
+        flujograma.setRaiz(new FormaGeneral("Inicio"));
+        boolean existen = true;
+        int cont = 2;
+        int tamanio = 0;
+ 
+        for (FormaGeneral fig : figs) {
 
+            String [] temp = fig.getIndice().getText().split("\\.");
+
+            if (temp.length >= cont) {
+                flujograma.agregar(flujograma.getRaiz(), fig);
+                System.out.println("Se va a agregar la figura "+fig);
+            }
+            else {
+                System.out.println("Se va a agregar la figura "+fig);
+                flujograma.getRaiz().setHijo(fig);       
+            }
+            if (figs.indexOf(fig) == figs.size()) {
+                cont++;
+            }
+
+            if (tamanio == figs.size()) {
+                existen = false;
+            }
+        }
+        tamanio++;
+            
+        //}
+        
+        
+        
+        return flujograma;
+        
+    }
     private void jPanel38jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel38jPanel11MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel38jPanel11MouseClicked
@@ -2945,7 +3003,9 @@ public class Principal extends javax.swing.JFrame {
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.gray);
                 }
-                
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.gray);
+                }
             }
         }
     }//GEN-LAST:event_jPanel41MouseClicked
@@ -2969,6 +3029,9 @@ public class Principal extends javax.swing.JFrame {
                 }
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.lightGray);
+                }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.lightGray);
                 }
                 
             }
@@ -2996,7 +3059,9 @@ public class Principal extends javax.swing.JFrame {
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.darkGray);
                 }
-                
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.darkGray);
+                }
             }
         }
     }//GEN-LAST:event_jPanel43MouseClicked
@@ -3020,6 +3085,9 @@ public class Principal extends javax.swing.JFrame {
                 }
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.black);
+                }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.black);
                 }
                 
             }
@@ -3046,6 +3114,9 @@ public class Principal extends javax.swing.JFrame {
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.red);
                 }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.red);
+                }
                 
             }
         }
@@ -3070,6 +3141,9 @@ public class Principal extends javax.swing.JFrame {
                 }
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.pink);
+                }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.pink);
                 }
                 
             }
@@ -3096,6 +3170,9 @@ public class Principal extends javax.swing.JFrame {
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.orange);
                 }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.orange);
+                }
                 
             }
         }
@@ -3120,6 +3197,9 @@ public class Principal extends javax.swing.JFrame {
                 }
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.yellow);
+                }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.yellow);
                 }
                 
             }
@@ -3147,6 +3227,9 @@ public class Principal extends javax.swing.JFrame {
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.green);
                 }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.green);
+                }
                 
             }
         }
@@ -3171,6 +3254,9 @@ public class Principal extends javax.swing.JFrame {
                 }
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.magenta);
+                }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.magenta);
                 }
                 
             }
@@ -3197,6 +3283,9 @@ public class Principal extends javax.swing.JFrame {
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.cyan);
                 }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.cyan);
+                }
                 
             }
         }
@@ -3222,6 +3311,9 @@ public class Principal extends javax.swing.JFrame {
                 }
                 if (c instanceof Paralelogramo){
                  ((Paralelogramo)c).paintback(Color.blue);
+                }
+                if (c instanceof InicioFin){
+                 ((InicioFin)c).paintback(Color.blue);
                 }
                 
             }
@@ -3436,6 +3528,12 @@ JFileChooser fileChooser = new JFileChooser();
 
     private void jlb_desicion1jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlb_desicion1jPanel11MouseClicked
         // TODO add your handling code here:
+        InicioFin I= new InicioFin();
+        I.setVisible(true);
+        jpn_diagrama.add(I);
+        jpn_diagrama.revalidate();
+        jpn_diagrama.repaint();
+        
     }//GEN-LAST:event_jlb_desicion1jPanel11MouseClicked
 
     private void jPanel53jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel53jPanel11MouseClicked
@@ -3469,6 +3567,11 @@ JFileChooser fileChooser = new JFileChooser();
                 if (c instanceof Paralelogramo){
                     if(((Paralelogramo)c).isSelec()){
                         ((Paralelogramo)c).settexto(co);
+                    }
+                }
+                if (c instanceof InicioFin){
+                    if(((InicioFin)c).isSelec()){
+                        ((InicioFin)c).settexto(co);
                     }
                 }
                 
@@ -3525,6 +3628,9 @@ JFileChooser fileChooser = new JFileChooser();
             else if(c instanceof Paralelogramo){
                 ((Paralelogramo)c).setfont(f);
             }
+            else if(c instanceof InicioFin){
+                ((InicioFin)c).setfont(f);
+            }
             
         }
     }//GEN-LAST:event_Bt_setfontMouseClicked
@@ -3552,6 +3658,83 @@ JFileChooser fileChooser = new JFileChooser();
         // TODO add your handling code here:
         saveAsJPG2(jpn_diagrama);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        int con=0;
+        for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+            Component c=jpn_diagrama.getComponent(i);
+            if(c instanceof Rombo){
+                if (((Rombo)c).isSelec()) {
+                    con++;
+                }
+            }
+            else if(c instanceof Proceso){
+                if (((Proceso)c).isSelec()) {
+                    con++;
+                }
+            }
+            else if(c instanceof circulo){
+                if (((circulo)c).isSelec()) {
+                    con++;
+                }
+            }
+            else if(c instanceof Paralelogramo){
+                if (((Paralelogramo)c).isSelec()) {
+                    con++;
+                }
+            }
+            else if(c instanceof InicioFin){
+                if (((InicioFin)c).isSelec()) {
+                    con++;
+                }
+            }
+            
+        }
+        if(con>1||con<1){
+            if(con>1){
+                JOptionPane.showMessageDialog(JD_DdF, "Por favor solo seleccione 1 imagen");
+            }
+            else{
+                JOptionPane.showMessageDialog(JD_DdF, "Por favor seleccione 1 imagen");
+            }
+        }
+        else{
+            for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+            Component c=jpn_diagrama.getComponent(i);
+            if(c instanceof Rombo){
+                if (((Rombo)c).isSelec()) {
+                    figs.add(((Rombo)c));
+                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                }
+            }
+            else if(c instanceof Proceso){
+                if (((Proceso)c).isSelec()) {
+                    figs.add(((Proceso)c));
+                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                }
+            }
+            else if(c instanceof circulo){
+                if (((circulo)c).isSelec()) {
+                    figs.add(((circulo)c));
+                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                }
+            }
+            else if(c instanceof Paralelogramo){
+                if (((Paralelogramo)c).isSelec()) {
+                    figs.add(((Paralelogramo)c));
+                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                }
+            }
+            else if(c instanceof InicioFin){
+                if (((InicioFin)c).isSelec()) {
+                    figs.add(((InicioFin)c));
+                    JOptionPane.showMessageDialog(JD_DdF, "Se ha agregado la imagen a la lista");
+                }
+            }
+        }
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     public String GenerarCodeUml() {
         pan=new ArrayList<>();
@@ -3802,7 +3985,7 @@ JFileChooser fileChooser = new JFileChooser();
 
     int cont = 0;
     public static ArrayList<JPanel> pan = new ArrayList<>();
-    ArrayList<JPanel> figs = new ArrayList<>();
+    public static ArrayList<FormaGeneral> figs = new ArrayList<>();
     public static JPopupMenu pop=new JPopupMenu();
      JMenuItem op2=new JMenuItem("Agregar al generador");
     
@@ -3823,6 +4006,7 @@ JFileChooser fileChooser = new JFileChooser();
     private javax.swing.JComboBox<String> cb_style;
     private javax.swing.JComboBox<String> cb_tamaño;
     private javax.swing.JComboBox<String> cb_tamaño1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

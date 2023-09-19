@@ -17,7 +17,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Path2D;
 
-public class Paralelogramo extends JPanel implements MouseListener, MouseMotionListener, ActionListener {
+public class Paralelogramo extends FormaGeneral implements MouseListener, MouseMotionListener, ActionListener {
     private JTextArea txt=new JTextArea();
     private JPopupMenu men = new JPopupMenu();
     private JMenuItem it2=new JMenuItem("Eliminar");
@@ -45,12 +45,15 @@ public class Paralelogramo extends JPanel implements MouseListener, MouseMotionL
         add(men);
         this.addMouseListener((MouseListener) this);
         this.addMouseMotionListener((MouseMotionListener) this);
+        this.add(indice);
+        indice.setSize(20, 20);
+        indice.setBounds(60, 90, 30, 15);
         setLayout(null);
-        setSize(100, 100);
-        setPreferredSize(new Dimension(100, 100));
+        setSize(150, 120);
+        setPreferredSize(new Dimension(150, 120));
         setVisible(true);
         txt.setPreferredSize(new Dimension(80, 25));
-        txt.setBounds(10, 40, 80, 25);
+        txt.setBounds(35, 50, 80, 25);
         add(txt);
         
     }
