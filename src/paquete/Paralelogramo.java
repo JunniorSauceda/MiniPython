@@ -42,12 +42,12 @@ public class Paralelogramo extends FormaGeneral implements MouseListener, MouseM
 
             }
         });
+        men.add(it2);
         add(men);
+        
         this.addMouseListener((MouseListener) this);
         this.addMouseMotionListener((MouseMotionListener) this);
-        this.add(indice);
-        indice.setSize(20, 20);
-        indice.setBounds(60, 90, 30, 15);
+        
         setLayout(null);
         setSize(150, 120);
         setPreferredSize(new Dimension(150, 120));
@@ -157,11 +157,16 @@ public class Paralelogramo extends FormaGeneral implements MouseListener, MouseM
     }
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
-        figselec=Paralelogramo.this;
-        selec=!selec;
-        setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        if(!selec){
-            figselec.setBorder(null);
+        figselec = Paralelogramo.this;
+        selec = !selec;
+        if (evt.isMetaDown()) {
+            men.show(this, evt.getX(), evt.getY());
+        } else {
+            
+            figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+            if (!selec) {
+                figselec.setBorder(null);
+            }
         }
         
     }
@@ -191,6 +196,11 @@ public class Paralelogramo extends FormaGeneral implements MouseListener, MouseM
 
     public void setSelec(boolean selec) {
         this.selec = selec;
+    }
+
+    @Override
+    public String toString() {
+        return "Datos: " + txt.getText();
     }
     
 }

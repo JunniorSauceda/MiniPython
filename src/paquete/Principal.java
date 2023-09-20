@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JColorChooser;
@@ -46,6 +47,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -147,6 +150,8 @@ public class Principal extends javax.swing.JFrame {
         jlb_desicion1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
         jPanel40 = new javax.swing.JPanel();
         jPanel41 = new javax.swing.JPanel();
         jPanel42 = new javax.swing.JPanel();
@@ -179,7 +184,7 @@ public class Principal extends javax.swing.JFrame {
         JD_Codigo = new javax.swing.JDialog();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        MostarCodigo = new javax.swing.JTextArea();
+        MostarCodigo = new javax.swing.JTextPane();
         jPanel14 = new javax.swing.JPanel();
         JD_herencia = new javax.swing.JDialog();
         jPanel10 = new javax.swing.JPanel();
@@ -190,6 +195,19 @@ public class Principal extends javax.swing.JFrame {
         tf_nomhijo = new javax.swing.JTextField();
         pn_crearHija = new javax.swing.JPanel();
         lb_tenerHija = new javax.swing.JLabel();
+        JD_Tree = new javax.swing.JDialog();
+        jPanel12 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        Jt_Arbol = new javax.swing.JTree();
+        jPanel37 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        Pop_elim = new javax.swing.JPopupMenu();
+        Pop1_Elim = new javax.swing.JMenuItem();
+        PopAgreg = new javax.swing.JPopupMenu();
+        Pop2_Anidar = new javax.swing.JMenuItem();
+        PopBt = new javax.swing.JPopupMenu();
+        PopBt_limpiarArbol = new javax.swing.JMenuItem();
+        PopBt_Anidar = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         pn_salir = new javax.swing.JPanel();
@@ -867,7 +885,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel32Layout.setVerticalGroup(
             jPanel32Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_desicion, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(jlb_desicion, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         jPanel33.setBackground(new java.awt.Color(255, 255, 255));
@@ -897,7 +915,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel33Layout.setVerticalGroup(
             jPanel33Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_ciclo, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(jlb_ciclo, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         jPanel34.setBackground(new java.awt.Color(255, 255, 255));
@@ -927,7 +945,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel34Layout.setVerticalGroup(
             jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_datos, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(jlb_datos, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         jPanel38.setBackground(new java.awt.Color(255, 255, 255));
@@ -957,7 +975,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel38Layout.setVerticalGroup(
             jPanel38Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lb_GenerarFlujo, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(lb_GenerarFlujo, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
         jPanel39.setBackground(new java.awt.Color(255, 255, 255));
@@ -987,7 +1005,7 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel39Layout.setVerticalGroup(
             jPanel39Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lb_proceso, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+            .addComponent(lb_proceso, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
         );
 
         jPanel53.setBackground(new java.awt.Color(255, 255, 255));
@@ -1017,23 +1035,53 @@ public class Principal extends javax.swing.JFrame {
         );
         jPanel53Layout.setVerticalGroup(
             jPanel53Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jlb_desicion1, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+            .addComponent(jlb_desicion1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
+        jLabel12.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("jLabel12");
+        jLabel12.setText("Agregar al Arbol");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel12MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel13.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel26.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel26.setText("Ver Arbol");
+        jLabel26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel26MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
@@ -1042,34 +1090,38 @@ public class Principal extends javax.swing.JFrame {
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel53, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel39, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel33, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel32, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(17, 17, 17))
         );
         jPanel31Layout.setVerticalGroup(
             jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel31Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(26, 26, 26)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
-                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel53, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(jPanel32, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
+                .addComponent(jPanel33, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jPanel39, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel38, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(19, 19, 19))
         );
 
         jPanel15.add(jPanel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 190, 610));
@@ -1522,8 +1574,6 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel11.setBackground(new java.awt.Color(0, 153, 153));
 
-        MostarCodigo.setColumns(20);
-        MostarCodigo.setRows(5);
         jScrollPane1.setViewportView(MostarCodigo);
 
         jPanel14.setBackground(new java.awt.Color(0, 102, 102));
@@ -1668,6 +1718,113 @@ public class Principal extends javax.swing.JFrame {
             JD_herenciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
+
+        jPanel12.setBackground(new java.awt.Color(0, 102, 102));
+
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Flujo");
+        Jt_Arbol.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        Jt_Arbol.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Jt_ArbolMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(Jt_Arbol);
+
+        jPanel37.setBackground(new java.awt.Color(255, 255, 255));
+
+        jLabel27.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setText("Salir");
+        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel27MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel37Layout = new javax.swing.GroupLayout(jPanel37);
+        jPanel37.setLayout(jPanel37Layout);
+        jPanel37Layout.setHorizontalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+        );
+        jPanel37Layout.setVerticalGroup(
+            jPanel37Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jPanel37, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout JD_TreeLayout = new javax.swing.GroupLayout(JD_Tree.getContentPane());
+        JD_Tree.getContentPane().setLayout(JD_TreeLayout);
+        JD_TreeLayout.setHorizontalGroup(
+            JD_TreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        JD_TreeLayout.setVerticalGroup(
+            JD_TreeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        Pop1_Elim.setText("Eliminar");
+        Pop1_Elim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Pop1_ElimActionPerformed(evt);
+            }
+        });
+        Pop_elim.add(Pop1_Elim);
+
+        PopAgreg.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PopAgregMouseClicked(evt);
+            }
+        });
+
+        Pop2_Anidar.setText("Anidar un metodo");
+        Pop2_Anidar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Pop2_AnidarActionPerformed(evt);
+            }
+        });
+        PopAgreg.add(Pop2_Anidar);
+
+        PopBt_limpiarArbol.setText("Limpiar Arbol");
+        PopBt_limpiarArbol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PopBt_limpiarArbolActionPerformed(evt);
+            }
+        });
+        PopBt.add(PopBt_limpiarArbol);
+
+        PopBt_Anidar.setText("Anidar Metodos");
+        PopBt_Anidar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PopBt_AnidarActionPerformed(evt);
+            }
+        });
+        PopBt.add(PopBt_Anidar);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -2651,6 +2808,11 @@ public class Principal extends javax.swing.JFrame {
                 modelo.addElement(((Interfaz) c));
                 cont++;
             }
+            if (c instanceof panelHerencia) {
+                modelo.addElement(((panelHerencia) c));
+                cont++;
+            }
+            
         }
         cb_padre.setModel(modelo);
         JD_herencia.pack();
@@ -2960,45 +3122,36 @@ public class Principal extends javax.swing.JFrame {
 
     private void lb_GenerarFlujojPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lb_GenerarFlujojPanel11MouseClicked
         // TODO add your handling code here:
-        Arbol tree = genarbolflujo();
-        String res = tree.recorrer(tree.getRaiz());
-        System.out.println(res);
+        int confirmacion = JOptionPane.showConfirmDialog(this, "Procedera a generarse codigo de python, verifique que todo este correcto");
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            JD_Codigo.pack();
+            JD_Codigo.setModal(true);
+            JD_Codigo.setLocationRelativeTo(this);
+            JD_Codigo.setVisible(true);
+
+            try {
+
+                MostarCodigo.setText("");
+
+                DefaultTreeModel m = (DefaultTreeModel) Jt_Arbol.getModel();
+                DefaultMutableTreeNode root = (DefaultMutableTreeNode) m.getRoot();
+
+                AdminTreeFLujo arbolFlujo = new AdminTreeFLujo();
+
+                arbolFlujo.translate(root, MostarCodigo);
+                MostarCodigo.revalidate();
+                MostarCodigo.repaint();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error al generar codigo");
+            }
+        }
 
 
     }//GEN-LAST:event_lb_GenerarFlujojPanel11MouseClicked
-    public Arbol genarbolflujo() {
-
-        Arbol flujograma = new Arbol();
-        flujograma.setRaiz(new FormaGeneral("Inicio"));
-        boolean existen = true;
-        int cont = 2;
-        int tamanio = 0;
-
-        for (FormaGeneral fig : figs) {
-
-            String[] temp = fig.getIndice().getText().split("\\.");
-
-            if (temp.length >= cont) {
-                flujograma.agregar(flujograma.getRaiz(), fig);
-                System.out.println("Se va a agregar la figura " + fig);
-            } else {
-                System.out.println("Se va a agregar la figura " + fig);
-                flujograma.getRaiz().setHijo(fig);
-            }
-            if (figs.indexOf(fig) == figs.size()) {
-                cont++;
-            }
-
-            if (tamanio == figs.size()) {
-                existen = false;
-            }
-        }
-        tamanio++;
-
-        //}
-        return flujograma;
-
-    }
+   
     private void jPanel38jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel38jPanel11MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel38jPanel11MouseClicked
@@ -3386,7 +3539,7 @@ public class Principal extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(JD_UML, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
+            JOptionPane.showMessageDialog(JD_UML, "No se seleccionó ninguna ubicación para guardar la imagen.");
         }
     }
 
@@ -3417,7 +3570,7 @@ public class Principal extends javax.swing.JFrame {
                 e.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(JD_UML, "No se seleccion贸 ninguna ubicaci贸n para guardar la imagen.");
+            JOptionPane.showMessageDialog(JD_UML, "No se seleccionó ninguna ubicación para guardar la imagen.");
         }
     }
 
@@ -3520,22 +3673,19 @@ public class Principal extends javax.swing.JFrame {
     }
     private void bt_cambiarfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_cambiarfontMouseClicked
         // TODO add your handling code here:
-        Font f=null;
-        if(cb_Style.getSelectedIndex()==0){
-            if (cb_style.getSelectedIndex()==0){
-                f = new Font (cb_font.getSelectedItem().toString(), Font.PLAIN, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));   
-            }
-            else if (cb_style.getSelectedIndex()==1){
+        Font f = null;
+        if (cb_Style.getSelectedIndex() == 0) {
+            if (cb_style.getSelectedIndex() == 0) {
+                f = new Font(cb_font.getSelectedItem().toString(), Font.PLAIN, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
+            } else if (cb_style.getSelectedIndex() == 1) {
                 f = new Font(cb_font.getSelectedItem().toString(), Font.BOLD, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
-            }
-            else if (cb_style.getSelectedIndex()==2){
+            } else if (cb_style.getSelectedIndex() == 2) {
                 f = new Font(cb_font.getSelectedItem().toString(), Font.ITALIC, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
-            }
-            else if (cb_style.getSelectedIndex()==3){
+            } else if (cb_style.getSelectedIndex() == 3) {
                 f = new Font(cb_font.getSelectedItem().toString(), Font.BOLD + Font.ITALIC, Integer.parseInt(cb_tamaño.getSelectedItem().toString()));
             }
         }
-         
+
         for (Component c : jpn_UML.getComponents()) {
             if (c instanceof mypanel) {
                 ((mypanel) c).setfont(f);
@@ -3638,22 +3788,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void Bt_setfontMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Bt_setfontMouseClicked
         // TODO add your handling code here:
-        Font f=null;
-        if(cb_Style.getSelectedIndex()==0){
-            if (cb_Style.getSelectedIndex()==0){
-                f = new Font (cb_font2.getSelectedItem().toString(), Font.PLAIN, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));   
-            }
-            else if (cb_Style.getSelectedIndex()==1){
+        Font f = null;
+        if (cb_Style.getSelectedIndex() == 0) {
+            if (cb_Style.getSelectedIndex() == 0) {
+                f = new Font(cb_font2.getSelectedItem().toString(), Font.PLAIN, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
+            } else if (cb_Style.getSelectedIndex() == 1) {
                 f = new Font(cb_font2.getSelectedItem().toString(), Font.BOLD, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
-            }
-            else if (cb_Style.getSelectedIndex()==2){
+            } else if (cb_Style.getSelectedIndex() == 2) {
                 f = new Font(cb_font2.getSelectedItem().toString(), Font.ITALIC, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
-            }
-            else if (cb_Style.getSelectedIndex()==3){
+            } else if (cb_Style.getSelectedIndex() == 3) {
                 f = new Font(cb_font2.getSelectedItem().toString(), Font.BOLD + Font.ITALIC, Integer.parseInt(cb_tamaño1.getSelectedItem().toString()));
             }
         }
-        
+
         for (Component c : jpn_diagrama.getComponents()) {
             if (c instanceof Rombo) {
                 ((Rombo) c).setfont(f);
@@ -3712,7 +3859,7 @@ public class Principal extends javax.swing.JFrame {
                 "Archivos Jr",
                 "Jr");
         jfc.setFileFilter(filtro);
-        int seleccion = jfc.showSaveDialog(this);
+        int seleccion = jfc.showSaveDialog(JD_UML);
 
         FileOutputStream fw = null;
         ObjectOutputStream bw = null;
@@ -3756,12 +3903,11 @@ public class Principal extends javax.swing.JFrame {
                         bw.flush();
                     }
 
-
                 }
 
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
+                JOptionPane.showMessageDialog(JD_UML, "Guardado exitosamente!");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error");
+                JOptionPane.showMessageDialog(JD_UML, "Error");
                 e.printStackTrace();
             }
             try {
@@ -3775,8 +3921,7 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
-    
-    
+
     private void jMenuItem9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem9MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem9MouseClicked
@@ -3803,7 +3948,7 @@ public class Principal extends javax.swing.JFrame {
 
             int seleccion = jfc.showOpenDialog(JD_UML);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                int confirm = JOptionPane.showConfirmDialog(this, "Desea copiar los datos?");
+                int confirm = JOptionPane.showConfirmDialog(JD_UML, "Desea copiar los datos?");
                 if (confirm != JOptionPane.YES_OPTION) {
                     jpn_UML.removeAll();
                 }
@@ -3903,8 +4048,8 @@ public class Principal extends javax.swing.JFrame {
         jfc.setCurrentDirectory(new File("C:\\Users\\Junnior Sauceda\\Desktop\\CosasProyecto"));
 
         FileNameExtensionFilter filtro = new FileNameExtensionFilter(
-                "Archivos Jr",
-                "Jr");
+                "Archivos Basados",
+                "MMDCH");
         jfc.setFileFilter(filtro);
         int seleccion = jfc.showSaveDialog(this);
 
@@ -3915,8 +4060,8 @@ public class Principal extends javax.swing.JFrame {
 
             try {
                 File file = null;
-                if (jfc.getFileFilter().getDescription().equals("Archivos Jr")) {
-                    file = new File(jfc.getSelectedFile().getPath() + ".Jr");
+                if (jfc.getFileFilter().getDescription().equals("Archivos Basados")) {
+                    file = new File(jfc.getSelectedFile().getPath() + ".MMDCH");
                 } else {
                     file = jfc.getSelectedFile();
                 }
@@ -3924,50 +4069,44 @@ public class Principal extends javax.swing.JFrame {
                 bw = new ObjectOutputStream(fw);
 
                 for (Object figura : figs) {
-                    
+
                     if (figura instanceof Rombo) {
-                        
+
                         Rombo temp = (Rombo) figura;
                         DatosRombo dat = GenDatosRombo(temp);
                         bw.writeObject(dat);
                         bw.flush();
-                    } 
-                    else if (figura instanceof circulo) {
-                        
+                    } else if (figura instanceof circulo) {
+
                         circulo temp = (circulo) figura;
                         DatosCiclo dat = GenDatosCiclo(temp);
                         bw.writeObject(dat);
                         bw.flush();
-                    } 
-                    else if (figura instanceof Paralelogramo) {
-                        
+                    } else if (figura instanceof Paralelogramo) {
+
                         Paralelogramo temp = (Paralelogramo) figura;
                         DatosDat dat = GenDatosDat(temp);
                         bw.writeObject(dat);
                         bw.flush();
-                    }
-                    else if (figura instanceof Proceso) {
-                        
+                    } else if (figura instanceof Proceso) {
+
                         Proceso temp = (Proceso) figura;
                         DatosProcess dat = GenDatosProce(temp);
                         bw.writeObject(dat);
                         bw.flush();
-                    }
-                    else if (figura instanceof InicioFin) {
-                        
+                    } else if (figura instanceof InicioFin) {
+
                         InicioFin temp = (InicioFin) figura;
                         DatosInicio dat = GenDatosInic(temp);
                         bw.writeObject(dat);
                         bw.flush();
                     }
-                    
-
 
                 }
 
-                JOptionPane.showMessageDialog(this, "Guardado exitosamente!");
+                JOptionPane.showMessageDialog(JD_DdF, "Guardado exitosamente!");
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Error");
+                JOptionPane.showMessageDialog(JD_DdF, "Error");
                 e.printStackTrace();
             }
             try {
@@ -3992,12 +4131,12 @@ public class Principal extends javax.swing.JFrame {
             jfc.setCurrentDirectory(new File("C:\\Users\\Junnior Sauceda\\Desktop\\CosasProyecto"));
             FileNameExtensionFilter filtro
                     = new FileNameExtensionFilter(
-                            "Archivos Jr", "Jr");
+                            "Archivos Basados", "MMDCH");
             jfc.setFileFilter(filtro);
 
             int seleccion = jfc.showOpenDialog(JD_DdF);
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                int confirm = JOptionPane.showConfirmDialog(this, "Desea copiar los datos?");
+                int confirm = JOptionPane.showConfirmDialog(JD_DdF, "Desea copiar los datos?");
                 if (confirm != JOptionPane.YES_OPTION) {
                     jpn_diagrama.removeAll();
                 }
@@ -4016,27 +4155,22 @@ public class Principal extends javax.swing.JFrame {
                             Rombo p = toRombo(S);
                             Desceri.add(p);
                             jpn_diagrama.add(p);
-                        }
-                        
-                        else if (temp instanceof DatosCiclo) {
+                        } else if (temp instanceof DatosCiclo) {
                             DatosCiclo S = (DatosCiclo) temp;
                             circulo p = toCiclo(S);
                             Desceri.add(p);
                             jpn_diagrama.add(p);
-                        } 
-                        else if (temp instanceof DatosDat) {
+                        } else if (temp instanceof DatosDat) {
                             DatosDat S = (DatosDat) temp;
                             Paralelogramo p = toDatos(S);
                             Desceri.add(p);
                             jpn_diagrama.add(p);
-                        }
-                        else if (temp instanceof DatosProcess) {
+                        } else if (temp instanceof DatosProcess) {
                             DatosProcess S = (DatosProcess) temp;
                             Proceso p = toProceso(S);
                             Desceri.add(p);
                             jpn_diagrama.add(p);
-                        }
-                        else if (temp instanceof DatosInicio) {
+                        } else if (temp instanceof DatosInicio) {
                             DatosInicio S = (DatosInicio) temp;
                             InicioFin p = toInicio(S);
                             Desceri.add(p);
@@ -4057,8 +4191,7 @@ public class Principal extends javax.swing.JFrame {
                         jpn_diagrama.add(P);
                         jpn_diagrama.revalidate();
                         jpn_diagrama.repaint();
-                    }
-                    else if (Ob instanceof circulo) {
+                    } else if (Ob instanceof circulo) {
                         circulo P = ((circulo) Ob);
                         P.revalidate();
                         P.repaint();
@@ -4066,8 +4199,7 @@ public class Principal extends javax.swing.JFrame {
                         jpn_diagrama.add(P);
                         jpn_diagrama.revalidate();
                         jpn_diagrama.repaint();
-                    }
-                    else if (Ob instanceof Paralelogramo) {
+                    } else if (Ob instanceof Paralelogramo) {
                         Paralelogramo P = ((Paralelogramo) Ob);
                         P.revalidate();
                         P.repaint();
@@ -4075,8 +4207,7 @@ public class Principal extends javax.swing.JFrame {
                         jpn_diagrama.add(P);
                         jpn_diagrama.revalidate();
                         jpn_diagrama.repaint();
-                    }
-                    else if (Ob instanceof Proceso) {
+                    } else if (Ob instanceof Proceso) {
                         Proceso P = ((Proceso) Ob);
                         P.revalidate();
                         P.repaint();
@@ -4084,8 +4215,7 @@ public class Principal extends javax.swing.JFrame {
                         jpn_diagrama.add(P);
                         jpn_diagrama.revalidate();
                         jpn_diagrama.repaint();
-                    }
-                    else if (Ob instanceof InicioFin) {
+                    } else if (Ob instanceof InicioFin) {
                         InicioFin P = ((InicioFin) Ob);
                         P.revalidate();
                         P.repaint();
@@ -4109,6 +4239,230 @@ public class Principal extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+        // TODO add your handling code here:
+        cont = 0;
+        DefaultMutableTreeNode N = (DefaultMutableTreeNode) Jt_Arbol.getModel().getRoot();
+        if (evt.isMetaDown()) {
+            PopBt.show(evt.getComponent(), evt.getX(), evt.getY() - 40);
+        } else {
+            for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    if (((Rombo) c).isSelec()) {
+                        cont++;
+                    }
+                } else if (c instanceof circulo) {
+                    if (((circulo) c).isSelec()) {
+                        cont++;
+                    }
+                } else if (c instanceof InicioFin) {
+                    if (((InicioFin) c).isSelec()) {
+                        cont++;
+                    }
+                } else if (c instanceof Proceso) {
+                    if (((Proceso) c).isSelec()) {
+                        cont++;
+                    }
+                } else if (c instanceof Paralelogramo) {
+                    if (((Paralelogramo) c).isSelec()) {
+                        cont++;
+                    }
+                }
+            }
+            if (cont != 1) {
+                if (cont < 1) {
+                    JOptionPane.showMessageDialog(JD_DdF, "Seleccione 1 archivo");
+                } else {
+                    JOptionPane.showMessageDialog(JD_DdF, "Seleccione solo 1 archivo");
+                }
+            } else {
+                for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+                    Component c = jpn_diagrama.getComponent(i);
+                    if (c instanceof Rombo) {
+                        if (((Rombo) c).isSelec()) {
+                            DefaultMutableTreeNode nod = new DefaultMutableTreeNode(((Rombo) c));
+                            nod.add(new DefaultMutableTreeNode("True"));
+                            nod.add(new DefaultMutableTreeNode("False"));
+                            N.add(nod);
+                        }
+                    } else if (c instanceof circulo) {
+                        if (((circulo) c).isSelec()) {
+                            N.add(new DefaultMutableTreeNode(((circulo) c)));
+                        }
+                    } else if (c instanceof InicioFin) {
+                        if (((InicioFin) c).isSelec()) {
+                            N.add(new DefaultMutableTreeNode(((InicioFin) c)));
+                        }
+                    } else if (c instanceof Proceso) {
+                        if (((Proceso) c).isSelec()) {
+                            N.add(new DefaultMutableTreeNode(((Proceso) c)));
+                        }
+                    } else if (c instanceof Paralelogramo) {
+                        if (((Paralelogramo) c).isSelec()) {
+                            N.add(new DefaultMutableTreeNode(((Paralelogramo) c)));
+                        }
+                    }
+                    Jt_Arbol.revalidate();
+                    Jt_Arbol.repaint();
+                }
+                JOptionPane.showMessageDialog(JD_DdF, "Se agrego el archivo al arbol");
+            }
+        }
+    }//GEN-LAST:event_jLabel12MouseClicked
+
+    private void jLabel26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel26MouseClicked
+        // TODO add your handling code here:}
+        JD_Tree.pack();
+        JD_Tree.setModal(true);
+        JD_Tree.setLocationRelativeTo(JD_DdF);
+        JD_Tree.setVisible(true);
+    }//GEN-LAST:event_jLabel26MouseClicked
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+        // TODO add your handling code here:
+        JD_Tree.setVisible(false);
+    }//GEN-LAST:event_jLabel27MouseClicked
+
+    private void Pop1_ElimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pop1_ElimActionPerformed
+        // TODO add your handling code here:
+        DefaultMutableTreeNode nod = ((DefaultMutableTreeNode) (Jt_Arbol.getModel().getRoot()));
+        nod.remove((((DefaultMutableTreeNode) (Jt_Arbol.getSelectionPath().getLastPathComponent()))));
+        DefaultTreeModel mod = new DefaultTreeModel(nod);
+        Jt_Arbol.setModel(mod);
+        Jt_Arbol.revalidate();
+        JOptionPane.showMessageDialog(JD_Tree, "Se ha eliminado el objeto");
+
+    }//GEN-LAST:event_Pop1_ElimActionPerformed
+
+    private void Jt_ArbolMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Jt_ArbolMouseClicked
+        // TODO add your handling code here:
+        if (evt.isMetaDown()) {
+            Object g = ((DefaultMutableTreeNode) (Jt_Arbol.getSelectionPath().getLastPathComponent())).getUserObject();
+            if (g instanceof Proceso) {
+                Pop_elim.show(Jt_Arbol, evt.getX(), evt.getY());
+            } else if (g instanceof Paralelogramo) {
+                Pop_elim.show(Jt_Arbol, evt.getX(), evt.getY());
+            } else if (g instanceof InicioFin) {
+                Pop_elim.show(Jt_Arbol, evt.getX(), evt.getY());
+            } else if (g instanceof Rombo) {
+                Pop_elim.show(Jt_Arbol, evt.getX(), evt.getY());
+            } else if (g instanceof circulo) {
+                Pop_elim.show(Jt_Arbol, evt.getX(), evt.getY());
+
+            }
+            if (g instanceof String) {
+                if ((((String) g).equalsIgnoreCase("True")) || (((String) g).equalsIgnoreCase("False"))) {
+                    PopAgreg.show(Jt_Arbol, evt.getX(), evt.getY());
+                }
+            }
+        }
+    }//GEN-LAST:event_Jt_ArbolMouseClicked
+
+    private void PopBt_limpiarArbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PopBt_limpiarArbolActionPerformed
+        // TODO add your handling code here:
+        int confi = JOptionPane.showConfirmDialog(JD_DdF, "Esta seguro que desea borrar todo el arbol?");
+        if (confi == 0) {
+            DefaultMutableTreeNode nvo = new DefaultMutableTreeNode("Flujo");
+            DefaultTreeModel t = new DefaultTreeModel(nvo);
+            Jt_Arbol.setModel(t);
+            Jt_Arbol.revalidate();
+        }
+    }//GEN-LAST:event_PopBt_limpiarArbolActionPerformed
+
+    private void PopBt_AnidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PopBt_AnidarActionPerformed
+        // TODO add your handling code here:
+        //PopAgreg.show(JD_Tree, evt.getX(), evt.getY());
+        JD_Tree.pack();
+        JD_Tree.setModal(true);
+        JD_Tree.setLocationRelativeTo(JD_DdF);
+        JD_Tree.setVisible(true);
+        Object c = ((DefaultMutableTreeNode) (Jt_Arbol.getSelectionPath().getLastPathComponent())).getUserObject();
+        if (c instanceof String) {
+            if ((((String) c).equalsIgnoreCase("True")) || (((String) c).equalsIgnoreCase("False"))) {
+                PopAgreg.show();
+            }
+        }
+
+
+    }//GEN-LAST:event_PopBt_AnidarActionPerformed
+
+    private void PopAgregMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PopAgregMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PopAgregMouseClicked
+
+    private void Pop2_AnidarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pop2_AnidarActionPerformed
+        // TODO add your handling code here:
+        cont = 0;
+        DefaultMutableTreeNode nod=null;
+        for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+            Component c = jpn_diagrama.getComponent(i);
+            if (c instanceof Rombo) {
+                if (((Rombo) c).isSelec()) {
+                    cont++;
+                }
+            } else if (c instanceof circulo) {
+                if (((circulo) c).isSelec()) {
+                    cont++;
+                }
+            } else if (c instanceof InicioFin) {
+                if (((InicioFin) c).isSelec()) {
+                    cont++;
+                }
+            } else if (c instanceof Proceso) {
+                if (((Proceso) c).isSelec()) {
+                    cont++;
+                }
+            } else if (c instanceof Paralelogramo) {
+                if (((Paralelogramo) c).isSelec()) {
+                    cont++;
+                }
+            }
+        }
+        if (cont != 1) {
+            if (cont < 1) {
+                JOptionPane.showMessageDialog(JD_DdF, "Seleccione 1 archivo");
+            } else {
+                JOptionPane.showMessageDialog(JD_DdF, "Seleccione solo 1 archivo");
+            }
+        } else {
+
+            for (int i = 0; i < jpn_diagrama.getComponentCount(); i++) {
+                Component c = jpn_diagrama.getComponent(i);
+                if (c instanceof Rombo) {
+                    if (((Rombo) c).isSelec()) {
+                        
+                        nod = new DefaultMutableTreeNode(((Rombo) c));
+                        nod.add(new DefaultMutableTreeNode("True"));
+                        nod.add(new DefaultMutableTreeNode("False"));
+                    }
+                } else if (c instanceof circulo) {
+                    if (((circulo) c).isSelec()) {
+                        nod = new DefaultMutableTreeNode(((circulo) c));
+                    }
+                } else if (c instanceof InicioFin) {
+                    if (((InicioFin) c).isSelec()) {
+                        nod = new DefaultMutableTreeNode(((InicioFin) c));
+                    }
+                } else if (c instanceof Proceso) {
+                    if (((Proceso) c).isSelec()) {
+                        nod = new DefaultMutableTreeNode(((Proceso) c));
+                    }
+                } else if (c instanceof Paralelogramo) {
+                    if (((Paralelogramo) c).isSelec()) {
+                        nod = new DefaultMutableTreeNode(((Paralelogramo) c));
+                    }
+                }
+            }
+            DefaultMutableTreeNode N=(DefaultMutableTreeNode)(Jt_Arbol.getSelectionPath().getLastPathComponent());
+            N.add(nod);
+            Jt_Arbol.revalidate();
+            Jt_Arbol.repaint();
+        }
+
+
+    }//GEN-LAST:event_Pop2_AnidarActionPerformed
 
     public mypanel toPanelSimp(DatosSimp X) {
         mypanel p = new mypanel();
@@ -4140,7 +4494,7 @@ public class Principal extends javax.swing.JFrame {
         p.setPadre(X.getPadre());
         return p;
     }
-    
+
     public Rombo toRombo(DatosRombo X) {
         Rombo p = new Rombo();
         p.paintback(X.getColor());
@@ -4148,6 +4502,7 @@ public class Principal extends javax.swing.JFrame {
         p.setfont(X.getFont());
         return p;
     }
+
     public circulo toCiclo(DatosCiclo X) {
         circulo p = new circulo();
         p.paintback(X.getColor());
@@ -4155,6 +4510,7 @@ public class Principal extends javax.swing.JFrame {
         p.setfont(X.getFont());
         return p;
     }
+
     public Proceso toProceso(DatosProcess X) {
         Proceso p = new Proceso();
         p.paintback(X.getColor());
@@ -4162,6 +4518,7 @@ public class Principal extends javax.swing.JFrame {
         p.setfont(X.getFont());
         return p;
     }
+
     public InicioFin toInicio(DatosInicio X) {
         InicioFin p = new InicioFin();
         p.paintback(X.getColor());
@@ -4169,6 +4526,7 @@ public class Principal extends javax.swing.JFrame {
         p.setfont(X.getFont());
         return p;
     }
+
     public Paralelogramo toDatos(DatosDat X) {
         Paralelogramo p = new Paralelogramo();
         p.paintback(X.getColor());
@@ -4195,7 +4553,7 @@ public class Principal extends javax.swing.JFrame {
         String codegen = "";
         for (JPanel jPa : pan) {
             if (jPa instanceof Abstractpanel) {
-                codegen += "from abc import ABC, abstracmethod\n\n";
+                codegen += "from abc import ABC, abstractmethod\n\n";
             }
         }
         for (JPanel Pa : pan) {
@@ -4218,7 +4576,7 @@ public class Principal extends javax.swing.JFrame {
                 }
                 codegen += "\n\n";
                 for (String st : met) {
-                    codegen += "\tdef" + st + " (self):\n";
+                    codegen += "\tdef " + st + " (self):\n";
                     codegen += "\t\tpass";
                     codegen += "\n\n";
                 }
@@ -4232,7 +4590,7 @@ public class Principal extends javax.swing.JFrame {
                     String atribPapa = ((mypanel) jpan).getTxt2().getText();
                     String[] atribsep = atribPapa.split("\n");
 
-                    codegen += "\tdef__init__(self";
+                    codegen += "\tdef __init__(self";
 
                     String atribprop = ((panelHerencia) Pa).getTxt2().getText();
                     String[] atribP = atribprop.split("\n");
@@ -4316,7 +4674,9 @@ public class Principal extends javax.swing.JFrame {
                     codegen += ((panelHerencia) Pa).getNAME() + " (" + ((panelHerencia) jpan).getNAME() + "):\n";
 
                     codegen += "\tdef __init__ (self";
-
+                    
+                    
+                    
                     String atribPad = ((panelHerencia) jpan).getTxt2().getText();
                     String[] AtribPa = atribPad.split("\n");
 
@@ -4341,7 +4701,7 @@ public class Principal extends javax.swing.JFrame {
                         }
                     }
 
-                    codegen += "):\n";
+                    codegen += ")\n";
 
                     for (String atr : atribprop) {
                         codegen += "\t\tself." + atr + " = " + atr + "\n";
@@ -4477,24 +4837,29 @@ public class Principal extends javax.swing.JFrame {
         DatosInter temp = new DatosInter(X.getTxt().getText(), X.getNAME() + " Interface", X.getBackground(), X.getTxt().getFont());
         return temp;
     }
-    public DatosRombo GenDatosRombo(Rombo X){
-        DatosRombo temp= new DatosRombo(X.getText().getText(), X.getColor(), X.getText().getFont());
+
+    public DatosRombo GenDatosRombo(Rombo X) {
+        DatosRombo temp = new DatosRombo(X.getText().getText(), X.getColor(), X.getText().getFont());
         return temp;
     }
-    public DatosCiclo GenDatosCiclo(circulo X){
-        DatosCiclo temp= new DatosCiclo(X.getArea().getText(), X.getColor(), X.getArea().getFont());
+
+    public DatosCiclo GenDatosCiclo(circulo X) {
+        DatosCiclo temp = new DatosCiclo(X.getArea().getText(), X.getColor(), X.getArea().getFont());
         return temp;
     }
-    public DatosDat GenDatosDat(Paralelogramo X){
-        DatosDat temp= new DatosDat(X.getArea().getText(), X.getColor(), X.getArea().getFont());
+
+    public DatosDat GenDatosDat(Paralelogramo X) {
+        DatosDat temp = new DatosDat(X.getArea().getText(), X.getColor(), X.getArea().getFont());
         return temp;
     }
-    public DatosProcess GenDatosProce(Proceso X){
-        DatosProcess temp= new DatosProcess(X.getTxt().getText(), X.getColor(), X.getTxt().getFont());
+
+    public DatosProcess GenDatosProce(Proceso X) {
+        DatosProcess temp = new DatosProcess(X.getTxt().getText(), X.getColor(), X.getTxt().getFont());
         return temp;
     }
-    public DatosInicio GenDatosInic(InicioFin X){
-        DatosInicio temp= new DatosInicio(X.getArea().getText(), X.getColor(), X.getArea().getFont());
+
+    public DatosInicio GenDatosInic(InicioFin X) {
+        DatosInicio temp = new DatosInicio(X.getArea().getText(), X.getColor(), X.getArea().getFont());
         return temp;
     }
 
@@ -4534,6 +4899,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     int cont = 0;
+    public static DefaultMutableTreeNode nodo;
     public static ArrayList<JPanel> pan = new ArrayList<>();
     public static ArrayList<FormaGeneral> figs = new ArrayList<>();
     public static ArrayList<Object> Desceri = new ArrayList<>();
@@ -4544,11 +4910,20 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton Bt_setfont;
     private javax.swing.JDialog JD_Codigo;
     private javax.swing.JDialog JD_DdF;
+    private javax.swing.JDialog JD_Tree;
     private javax.swing.JDialog JD_UML;
     private javax.swing.JDialog JD_herencia;
-    private javax.swing.JTextArea MostarCodigo;
+    private javax.swing.JTree Jt_Arbol;
+    private javax.swing.JTextPane MostarCodigo;
     private javax.swing.JPanel Pn_DdF;
     private javax.swing.JPanel Pn_UML;
+    private javax.swing.JMenuItem Pop1_Elim;
+    private javax.swing.JMenuItem Pop2_Anidar;
+    private javax.swing.JPopupMenu PopAgreg;
+    private javax.swing.JPopupMenu PopBt;
+    private javax.swing.JMenuItem PopBt_Anidar;
+    private javax.swing.JMenuItem PopBt_limpiarArbol;
+    private javax.swing.JPopupMenu Pop_elim;
     private javax.swing.JButton bt_cambiarfont;
     private javax.swing.JComboBox<String> cb_Style;
     private javax.swing.JComboBox<String> cb_font;
@@ -4575,6 +4950,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -4604,6 +4981,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -4629,6 +5008,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel35;
     private javax.swing.JPanel jPanel36;
+    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel4;
@@ -4654,6 +5034,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel jlb_ciclo;
     private javax.swing.JLabel jlb_datos;
     private javax.swing.JLabel jlb_desicion;

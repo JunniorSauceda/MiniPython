@@ -66,9 +66,7 @@ public class Rombo extends FormaGeneral implements MouseListener, MouseMotionLis
         this.addMouseListener((MouseListener) this);
         this.addMouseMotionListener((MouseMotionListener) this);
         // Crear un JTextPane y agregarlo al centro del panel
-        this.add(indice);
-        indice.setSize(25, 20);
-        indice.setBounds(87, 75, 30, 20);
+       
         textPane = new JTextArea();
         textPane.setText("");
         textPane.setBackground(Color.white); // Establecer el fondo del JTextPane al color del panel
@@ -226,4 +224,10 @@ public class Rombo extends FormaGeneral implements MouseListener, MouseMotionLis
     public void settexto(Color c){
         textPane.setForeground(c);
     }
+
+    @Override
+    public String toString() {
+        return "If "+textPane.getText();
+    }
+    
 }

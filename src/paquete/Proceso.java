@@ -86,10 +86,7 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
         this.setSize(150, 100);
         this.setBounds(0, 0, 150, 80);
         this.add(sp1);
-        this.add(indice);
         setLayout(null);
-        indice.setSize(20, 30);
-        indice.setBounds(60, 55, 30, 20);
         txt.setSize(100, 20);
         txt.setBounds(0, 20, 130, 20);
         txt.setSize(130, 30);
@@ -295,8 +292,10 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
 
     @Override
     public String toString() {
-        return "NO";
+        return "Proceso: " + txt.getText() ;
     }
+
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -311,6 +310,7 @@ public class Proceso extends FormaGeneral implements MouseListener, MouseMotionL
     public void settexto(Color c){
         txt.setForeground(c);
     }
+    
     
 }
 

@@ -50,9 +50,7 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
         this.addMouseMotionListener((MouseMotionListener)this);
         this.setSize(150, 100);
         this.setPreferredSize(new Dimension(150, 100));
-        this.add(indice);
-        indice.setSize(20, 25);
-        indice.setBounds(75, 75, 30, 20);
+        
         area.setLineWrap(true);
         sp1.setPreferredSize(new Dimension(80, 25));
         sp1.setBounds(22, 35, 100, 25);
@@ -141,11 +139,16 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
     }
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
-        figselec=circulo.this;
-        selec=!selec;
-        figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        if(!selec){
-            figselec.setBorder(null);
+        figselec = circulo.this;
+        selec = !selec;
+        if (evt.isMetaDown()) {
+            men.show(this, evt.getX(), evt.getY());
+        } else {
+            
+            figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+            if (!selec) {
+                figselec.setBorder(null);
+            }
         }
         
     }
@@ -182,5 +185,11 @@ public class circulo extends FormaGeneral implements MouseListener, MouseMotionL
     public void setSelec(boolean selec) {
         this.selec = selec;
     }
+
+    @Override
+    public String toString() {
+        return "while "+area.getText();
+    }
+    
     
 }

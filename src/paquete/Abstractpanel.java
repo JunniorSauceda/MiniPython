@@ -61,7 +61,7 @@ public class Abstractpanel extends JPanel implements MouseListener, MouseMotionL
     private JPanel p4 = new JPanel();
     private JSeparator s1 = new JSeparator();
     private JSeparator s2 = new JSeparator();
-    private String sad = "                 ";
+    private String sad = "";
     private String NAME;
     private JPanel padre = new JPanel();
 

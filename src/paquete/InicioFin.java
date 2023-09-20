@@ -51,9 +51,6 @@ public class InicioFin extends FormaGeneral implements MouseListener, MouseMotio
         this.addMouseMotionListener((MouseMotionListener)this);
         this.setSize(150, 90);
         this.setPreferredSize(new Dimension(150, 90));
-        this.add(indice);
-        indice.setSize(20, 25);
-        indice.setBounds(65, 65, 30, 20);
         area.setLineWrap(true);
         sp1.setPreferredSize(new Dimension(80, 25));
         sp1.setBounds(22, 35, 100, 25);
@@ -143,11 +140,16 @@ public class InicioFin extends FormaGeneral implements MouseListener, MouseMotio
     }
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
-        figselec=InicioFin.this;
-        selec=!selec;
-        figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
-        if(!selec){
-            figselec.setBorder(null);
+        figselec = InicioFin.this;
+        selec = !selec;
+        if (evt.isMetaDown()) {
+            men.show(this, evt.getX(), evt.getY());
+        } else {
+            
+            figselec.setBorder(BorderFactory.createLineBorder(Color.black, 2));
+            if (!selec) {
+                figselec.setBorder(null);
+            }
         }
         
     }
@@ -183,6 +185,11 @@ public class InicioFin extends FormaGeneral implements MouseListener, MouseMotio
 
     public void setSelec(boolean selec) {
         this.selec = selec;
+    }
+
+    @Override
+    public String toString() {
+        return "InicioFin: " + area.getText()  ;
     }
     
 }
