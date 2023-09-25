@@ -227,7 +227,7 @@ public class Rombo extends FormaGeneral implements MouseListener, MouseMotionLis
 
     @Override
     public String toString() {
-        return "If "+textPane.getText();
+        return "if "+textPane.getText();
     }
     
 }

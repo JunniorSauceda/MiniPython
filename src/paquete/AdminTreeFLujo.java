@@ -62,9 +62,9 @@ public class AdminTreeFLujo {
 
 
 //si encuentra una condicional If
-        else if (nodeValue.startsWith("If ")) {
+        else if (nodeValue.startsWith("if ")) {
             //JOptionPane.showMessageDialog(null, "Procesando nodo: " + nodeValue);
-            code.append(indent).append(nodeValue).append("\n");
+            code.append(indent).append(nodeValue).append(":\n");
             Enumeration<?> hijos = node.children();
 
             while (hijos.hasMoreElements()) {
@@ -91,7 +91,7 @@ public class AdminTreeFLujo {
         }
         else if(nodeValue.startsWith("Datos: ")){
             String newNodeValue = nodeValue.replace("Datos: ", "");
-            code.append(indent).append(newNodeValue).append(": ").append("Input(\"Ingrese el valor de ").append(newNodeValue).append(": \")").append("\n");
+            code.append(indent).append(newNodeValue).append("= ").append("input(\"Ingrese el valor deseado ").append(newNodeValue).append(": \")").append("\n");
             Enumeration<?> hijos = node.children();
 
             while (hijos.hasMoreElements()) {

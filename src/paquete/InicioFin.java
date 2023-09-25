@@ -189,7 +189,7 @@ public class InicioFin extends FormaGeneral implements MouseListener, MouseMotio
 
     @Override
     public String toString() {
-        return "InicioFin: " + area.getText()  ;
+        return "#InicioFin: " + area.getText()  ;
     }
     
 }
